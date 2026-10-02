@@ -1,0 +1,9 @@
+{
+  "name": "@tamabuddy/tamagotchi-engine",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/tamagotchi-engine/src",
+  "projectType": "library",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project @tamabuddy/tamagotchi-engine --web",
+  "targets": {}
+}

@@ -1,0 +1,6 @@
+packages:
+  - 'apps/*'
+  - 'libs/*'
+allowBuilds:
+  '@swc/core': false
+  esbuild: false
