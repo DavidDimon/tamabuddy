@@ -1,0 +1,8 @@
+{
+  "name": "@tamabuddy/tamabuddy-web",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "@tamabuddy/tamabuddy-engine": "workspace:*"
+  }
+}

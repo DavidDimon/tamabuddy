@@ -1,8 +1,8 @@
-# Tamagotchi Nx + Harness — Prompt Pack
+# Tamabuddy Nx + Harness — Prompt Pack
 
 Execute os prompts em ordem, a partir da raiz do repositório. Cada etapa deve validar o resultado e pedir autorização antes de seguir para a próxima.
 
-Objetivo final: monorepo Nx com app React inicial, lib TypeScript `tamagotchi-engine`, harness arquitetural e engine inspirada nos Tamagotchi clássicos dos anos 90. O front-end deve ficar apenas com a fundação necessária para consumir a engine; UI/gráficos avançados ficam fora do escopo.
+Objetivo final: monorepo Nx do projeto Tamabuddy, com app React, biblioteca TypeScript `tamabuddy-engine`, harness arquitetural e uma engine própria de simulação de mascote virtual. O front-end consome a engine exclusivamente pelas APIs públicas do projeto.
 
 Ordem:
 
@@ -10,7 +10,7 @@ Ordem:
 2. `02-harness-base.md`
 3. `03-engine-architecture.md`
 4. `04-frontend-base.md`
-5. `05-tamagotchi-domain-rules.md`
+5. `05-tamabuddy-domain-rules.md`
 6. `06-engine-architecture-docs.md`
 7. `07-harness-implementation.md`
 8. `08-engine-implementation.md`

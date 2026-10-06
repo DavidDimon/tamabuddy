@@ -1,8 +1,0 @@
-{
-  "name": "@tamabuddy/tamagotchi-web",
-  "version": "0.0.1",
-  "private": true,
-  "dependencies": {
-    "@tamabuddy/tamagotchi-engine": "workspace:*"
-  }
-}

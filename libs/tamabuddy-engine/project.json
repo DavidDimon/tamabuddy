@@ -1,0 +1,25 @@
+{
+  "name": "@tamabuddy/tamabuddy-engine",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/tamabuddy-engine/src",
+  "projectType": "library",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project @tamabuddy/tamabuddy-engine --web",
+  "targets": {
+    "batch-invariants": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "TAMABUDDY_LONG_CAMPAIGN=true vitest run src/lib/testing/simulation/__tests__/BatchSimulation.campaign.spec.ts --config vitest.config.mts",
+        "cwd": "libs/tamabuddy-engine"
+      }
+    },
+    "testing-entrypoint-check": {
+      "dependsOn": ["build"],
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "tsc --project scripts/tsconfig.testing-entrypoint.json --pretty false && node scripts/verify-testing-entrypoint.mjs",
+        "cwd": "libs/tamabuddy-engine"
+      }
+    }
+  }
+}

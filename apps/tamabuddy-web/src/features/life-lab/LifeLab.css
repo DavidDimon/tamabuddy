@@ -1,0 +1,392 @@
+.life-lab__eyebrow {
+  margin: 0 0 0.35rem;
+  color: #527064;
+  font-size: 0.68rem;
+  font-weight: 750;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.life-lab[data-bundle-marker='TAMABUDDY_LIFE_LAB'] {
+  overflow: hidden;
+  border: 1px solid #1f332b;
+  border-radius: 1.25rem;
+  background: #f8f8f3;
+  box-shadow: 0 1.5rem 4rem rgb(28 43 35 / 12%);
+}
+.life-lab__hero {
+  display: flex;
+  gap: 2rem;
+  align-items: start;
+  justify-content: space-between;
+  padding: clamp(1.5rem, 4vw, 3.2rem);
+  color: #f7f5ec;
+  background: #173d31;
+}
+.life-lab__hero h2 {
+  margin: 0;
+  font:
+    400 clamp(2.8rem, 6vw, 5.6rem)/1 Georgia,
+    serif;
+  letter-spacing: -0.06em;
+}
+.life-lab__hero p:last-child {
+  max-width: 44rem;
+  margin: 0.75rem 0 0;
+  color: #cbded4;
+}
+.life-lab__hero .life-lab__eyebrow {
+  color: #9fbeae;
+}
+.life-lab__dev-badge {
+  flex: none;
+  padding: 0.5rem 0.65rem;
+  border: 1px solid #76a18d;
+  border-radius: 999px;
+  color: #c9e8d9;
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+}
+.life-lab__workspace {
+  display: grid;
+  grid-template-columns: minmax(15rem, 21rem) minmax(0, 1fr);
+}
+.life-lab__controls {
+  padding: 2rem;
+  border-right: 1px solid #d6dad3;
+  background: #edf0e8;
+}
+.life-lab__controls label,
+.life-lab__controls fieldset {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0 0 1rem;
+  color: #405148;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+.life-lab__controls fieldset {
+  padding: 1rem;
+  border: 1px solid #c8d0c6;
+  border-radius: 0.8rem;
+}
+.life-lab__controls fieldset label:last-child {
+  margin-bottom: 0;
+}
+.life-lab__controls legend {
+  padding-inline: 0.4rem;
+}
+.life-lab__controls input,
+.life-lab__controls select,
+.life-lab__replay textarea {
+  width: 100%;
+  min-height: 2.65rem;
+  padding: 0.65rem 0.7rem;
+  color: #17231f;
+  background: #fff;
+}
+.life-lab__field-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+.life-lab__control-heading,
+.life-lab__section-heading {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.5rem;
+}
+.life-lab__control-heading > span {
+  display: grid;
+  width: 2.1rem;
+  height: 2.1rem;
+  place-items: center;
+  border-radius: 50%;
+  color: #fff;
+  background: #216e55;
+  font-size: 0.7rem;
+}
+.life-lab h3,
+.life-lab h4 {
+  margin: 0;
+  font-family: Georgia, serif;
+  font-weight: 500;
+}
+.life-lab__primary {
+  width: 100%;
+  border-color: #173d31;
+  color: #fff;
+  background: #173d31;
+}
+.life-lab__batch {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #c8d0c6;
+}
+.life-lab__batch button {
+  width: 100%;
+}
+.life-lab__results {
+  min-width: 0;
+  padding: clamp(1.25rem, 3vw, 2.5rem);
+}
+.life-lab__results > section + section {
+  margin-top: 2rem;
+}
+.life-lab__empty {
+  display: grid;
+  min-height: 28rem;
+  place-content: center;
+  color: #647068;
+  text-align: center;
+}
+.life-lab__empty > span {
+  color: #9aac9e;
+  font-size: 4rem;
+}
+.life-lab__empty p {
+  margin-bottom: 0;
+}
+.life-lab__alert,
+.life-lab__loading {
+  margin-bottom: 1rem;
+  padding: 0.8rem 1rem;
+  border-radius: 0.65rem;
+}
+.life-lab__alert--error {
+  color: #812f28;
+  background: #f8ded9;
+}
+.life-lab__alert--success {
+  color: #15583e;
+  background: #dcefe4;
+}
+.life-lab__loading {
+  color: #345b4c;
+  background: #e4eee7;
+}
+.life-lab__loading span {
+  display: inline-block;
+  width: 0.65rem;
+  height: 0.65rem;
+  margin-right: 0.5rem;
+  border-radius: 50%;
+  background: #216e55;
+  animation: pulse 0.9s ease-in-out infinite alternate;
+}
+@keyframes pulse {
+  to {
+    opacity: 0.25;
+  }
+}
+.life-lab__behavior {
+  padding: 0.45rem 0.7rem;
+  border-radius: 999px;
+  color: #fff;
+  background: #357860;
+  font-size: 0.7rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+.life-lab__behavior--dead {
+  background: #9b3c34;
+}
+.life-lab__metrics,
+.life-lab__final-grid {
+  display: grid;
+  grid-template-columns: repeat(6, minmax(0, 1fr));
+  gap: 1px;
+  overflow: hidden;
+  margin: 0;
+  border: 1px solid #d5d9d2;
+  border-radius: 0.7rem;
+  background: #d5d9d2;
+}
+.life-lab__metrics div,
+.life-lab__final-grid div {
+  min-width: 0;
+  padding: 0.8rem;
+  background: #fff;
+}
+.life-lab__metrics dt,
+.life-lab__final-grid span {
+  color: #718078;
+  font-size: 0.62rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.life-lab__metrics dd {
+  overflow: hidden;
+  margin: 0.25rem 0 0;
+  font-weight: 700;
+  text-overflow: ellipsis;
+}
+.life-lab__final-grid {
+  margin-top: 0.8rem;
+}
+.life-lab__final-grid strong {
+  display: block;
+  margin-top: 0.25rem;
+}
+.life-lab__state-json,
+.life-lab__event-list pre,
+.life-lab__batch-results pre {
+  overflow: auto;
+  max-height: 20rem;
+  padding: 1rem;
+  border-radius: 0.6rem;
+  color: #cee8dc;
+  background: #162a23;
+  font-size: 0.72rem;
+}
+.life-lab__state-json {
+  margin-top: 0.8rem;
+}
+.life-lab__chart-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+.life-chart {
+  min-width: 0;
+  margin: 0;
+  padding: 1rem;
+  border: 1px solid #d5d9d2;
+  border-radius: 0.7rem;
+  background: #fff;
+}
+.life-chart figcaption {
+  margin-bottom: 0.5rem;
+  font:
+    1.05rem Georgia,
+    serif;
+}
+.life-chart svg {
+  display: block;
+  width: 100%;
+}
+.life-chart__grid {
+  fill: none;
+  stroke: #e9ece7;
+  stroke-width: 1;
+}
+.life-chart__legend {
+  display: flex;
+  gap: 0.8rem;
+  color: #67736d;
+  font-size: 0.65rem;
+}
+.life-chart__legend i {
+  display: inline-block;
+  width: 0.55rem;
+  height: 0.55rem;
+  margin-right: 0.3rem;
+  border-radius: 50%;
+}
+.life-lab__timeline select {
+  min-height: 2.3rem;
+  margin-left: 0.5rem;
+  padding-inline: 0.5rem;
+  background: #fff;
+}
+.life-lab__event-list {
+  max-height: 34rem;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  list-style: none;
+}
+.life-lab__event-list li {
+  border-top: 1px solid #e0e3dd;
+}
+.life-lab__event-list button {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 0.8rem;
+  align-items: center;
+  width: 100%;
+  border: 0;
+  border-radius: 0;
+  text-align: left;
+}
+.life-lab__event-list button:hover {
+  background: #f0f3ed;
+}
+.life-lab__event-list small {
+  display: block;
+  color: #718078;
+}
+.life-lab__event-list em {
+  color: #913e36;
+  font-size: 0.7rem;
+  font-style: normal;
+}
+.life-lab__event-list em.is-accepted {
+  color: #247053;
+}
+.life-lab__event-dot {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: #789087;
+}
+.life-lab__event-dot--command {
+  background: #7b61ff;
+}
+.life-lab__event-dot--evolved,
+.life-lab__event-dot--hatched {
+  background: #2a9d8f;
+}
+.life-lab__event-list pre {
+  margin: 0 0 0.8rem 2.4rem;
+}
+.life-lab__button-row {
+  display: flex;
+  gap: 0.5rem;
+}
+.life-lab__replay textarea {
+  resize: vertical;
+  font-family: ui-monospace, monospace;
+  font-size: 0.75rem;
+}
+.life-lab__batch-results {
+  padding: 1.25rem;
+  border: 1px solid #d4a49d;
+  border-radius: 0.8rem;
+  background: #fff5f2;
+}
+.life-lab__muted {
+  color: #718078;
+}
+
+@media (max-width: 900px) {
+  .life-lab__workspace {
+    grid-template-columns: 1fr;
+  }
+  .life-lab__controls {
+    border-right: 0;
+    border-bottom: 1px solid #d6dad3;
+  }
+  .life-lab__metrics,
+  .life-lab__final-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 560px) {
+  .life-lab__hero,
+  .life-lab__section-heading {
+    align-items: start;
+    flex-direction: column;
+  }
+  .life-lab__chart-grid,
+  .life-lab__field-row {
+    grid-template-columns: 1fr;
+  }
+  .life-lab__metrics,
+  .life-lab__final-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
