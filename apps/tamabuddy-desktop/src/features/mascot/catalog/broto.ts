@@ -1,0 +1,212 @@
+import type { Stage } from '@tamabuddy/tamabuddy-engine';
+
+import type { MascotVisualKey } from '../mascotManifest.js';
+import {
+  createMascotManifest,
+  type MascotStageDesign,
+  type MascotVisualDesign,
+} from './createMascotManifest.js';
+
+const STAGE_DESIGNS: Readonly<Record<Stage, MascotStageDesign>> = {
+  egg: {
+    body: ['   .   ', '  / \\  ', ' /###\\ ', '|#####|', ' \\___/ '],
+    description: 'uma semente fechada com uma pequena fissura',
+  },
+  baby: {
+    body: ['   .   ', '   |   ', '  \\|/  ', ' / o \\ ', '(  w  )', ' \\___/ '],
+    description: 'uma semente redonda com seu primeiro broto',
+  },
+  child: {
+    body: [
+      '  \\ /  ',
+      '   |   ',
+      '  /|\\  ',
+      ' / o \\ ',
+      '(  w  )',
+      ' \\___/ ',
+      '  / \\  ',
+    ],
+    description: 'um brotinho com duas folhas e base arredondada',
+  },
+  teen: {
+    body: [
+      '  \\ /  ',
+      ' --|-- ',
+      '   |   ',
+      ' .---. ',
+      '/ o o \\',
+      '|  w  |',
+      '\\_____/',
+      ' _/ \\_ ',
+    ],
+    description: 'uma planta jovem com caule alto e crescimento lateral',
+  },
+  adult: {
+    body: [
+      ' .^^^^^. ',
+      '/^^^^^^^\\',
+      '\\__|||__/',
+      '  /   \\  ',
+      ' / o o \\ ',
+      '(   w   )',
+      ' \\_____/ ',
+      ' _/ \\_  ',
+    ],
+    description: 'uma pequena árvore com copa cheia e pés enraizados',
+  },
+  elder: {
+    body: [
+      ' .~~~~~. ',
+      '/^^^^^^^\\',
+      '\\__|||__/',
+      '   |||   ',
+      ' / o o \\ ',
+      '(   w   )',
+      ' \\_____/ ',
+      '_//   \\\\_',
+    ],
+    description: 'uma árvore antiga com copa serena e raízes largas',
+  },
+};
+
+const VISUAL_DESIGNS: Readonly<Record<MascotVisualKey, MascotVisualDesign>> = {
+  idle: {
+    description: 'balança suas folhas com calma',
+    topCues: ['.       v      .', '  v        .    '],
+    fps: 1,
+    loop: true,
+  },
+  happy: {
+    description: 'está florescendo de alegria',
+    mouth: 'u',
+    topCues: ['*      +       *', '  +    *    +  '],
+    fps: 5,
+    loop: false,
+  },
+  sad: {
+    description: 'está com as folhas caídas',
+    mouth: 'n',
+    topCues: ['.              .', '                '],
+    bottomCue: '.   .',
+    fps: 1,
+    loop: true,
+  },
+  hungry: {
+    description: 'está com fome',
+    mouth: 'O',
+    topCues: ['      ?         '],
+    bottomCue: '< comida >',
+    fps: 1,
+    loop: true,
+  },
+  sleeping: {
+    description: 'repousa com as folhas fechadas',
+    eyes: '-',
+    mouth: '_',
+    topCues: ['          z     ', '        z Z     '],
+    fps: 1,
+    loop: true,
+  },
+  playing: {
+    description: 'espalha folhas enquanto brinca',
+    mouth: 'u',
+    topCues: ['v  +       v   +', '  +   v   +    v'],
+    bottomCue: '/\\',
+    fps: 5,
+    loop: false,
+  },
+  eatingMeal: {
+    description: 'está comendo uma refeição',
+    mouth: 'O',
+    topCues: ['                ', '      <=>       '],
+    bottomCue: '< refeicao >',
+    fps: 4,
+    loop: false,
+  },
+  eatingSnack: {
+    description: 'está comendo um lanche',
+    mouth: 'o',
+    topCues: ['       .        ', '      . v       '],
+    bottomCue: '< lanche >',
+    fps: 5,
+    loop: false,
+  },
+  cleaning: {
+    description: 'recebe uma chuva refrescante',
+    mouth: 'u',
+    topCues: ['.   .   .   .  ', '  .   .   .   . '],
+    bottomCue: '~ limpo ~',
+    fps: 5,
+    loop: false,
+  },
+  dirty: {
+    description: 'precisa remover a sujeira de suas raízes',
+    mouth: 'n',
+    topCues: ['     ...        '],
+    bottomCue: ',,, terra ,,,',
+    fps: 1,
+    loop: true,
+  },
+  sick: {
+    description: 'está com as folhas enfraquecidas',
+    eyes: '+',
+    mouth: '~',
+    topCues: ['v              v', '                '],
+    bottomCue: '+ ajuda +',
+    fps: 1,
+    loop: true,
+  },
+  medicine: {
+    description: 'está tomando o remédio',
+    mouth: 'O',
+    topCues: ['       +        ', '      +++       '],
+    bottomCue: '< remedio >',
+    fps: 4,
+    loop: false,
+  },
+  discipline: {
+    description: 'fica firme para escutar',
+    mouth: '_',
+    topCues: ['       !        ', '      !!!       '],
+    fps: 4,
+    loop: false,
+  },
+  attention: {
+    description: 'quer sua atenção',
+    mouth: 'O',
+    topCues: ['      ! !       ', '     !   !      '],
+    fps: 2,
+    loop: true,
+  },
+  evolving: {
+    description: 'cresce em uma nova forma',
+    eyes: '*',
+    mouth: 'u',
+    topCues: ['<<    v    >>   ', '  <<  *  >>     ', '    <<v>>       '],
+    bottomCue: '>>> cresce >>>',
+    fps: 4,
+    loop: false,
+  },
+  dead: {
+    description: 'chegou ao fim de sua jornada',
+    eyes: 'x',
+    mouth: '_',
+    topCues: ['      _____     '],
+    bottomCue: '--- repouso ---',
+    fps: 1,
+    loop: false,
+  },
+};
+
+export const BROTO_MANIFEST = createMascotManifest({
+  id: 'broto',
+  name: 'Broto',
+  canvas: { width: 24, height: 13 },
+  colors: {
+    primary: 'green',
+    secondary: 'dark-green',
+    highlight: 'pale-green',
+  },
+  stages: STAGE_DESIGNS,
+  visuals: VISUAL_DESIGNS,
+});

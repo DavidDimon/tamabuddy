@@ -17,7 +17,7 @@ describe('resolveMascotVisual', () => {
   };
 
   it('keeps terminal behaviors above need presentation', () => {
-    expect(resolveMascotVisual(egg)).toBe('egg');
+    expect(resolveMascotVisual(egg)).toBe('idle');
     expect(resolveMascotVisual({ ...awake, behavior: 'dead' })).toBe('dead');
   });
 

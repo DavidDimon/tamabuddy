@@ -1,0 +1,215 @@
+import type { Stage } from '@tamabuddy/tamabuddy-engine';
+
+import type { MascotVisualKey } from '../mascotManifest.js';
+import {
+  createMascotManifest,
+  type MascotStageDesign,
+  type MascotVisualDesign,
+} from './createMascotManifest.js';
+
+const STAGE_DESIGNS: Readonly<Record<Stage, MascotStageDesign>> = {
+  egg: {
+    body: ['   .   ', '   ^   ', '  /#\\  ', ' (###) ', "  '-'  "],
+    description: 'um pequeno carvão com uma chama piloto',
+  },
+  baby: {
+    body: [
+      '   ^   ',
+      '  / \\  ',
+      ' / o \\ ',
+      '(  w  )',
+      ' \\___/ ',
+      '  / \\  ',
+    ],
+    description: 'uma chama compacta com corpo de brasa e pés pequenos',
+  },
+  child: {
+    body: [
+      '  .^.  ',
+      ' /^^^\\ ',
+      '/ o o \\',
+      '(  w  )',
+      ' \\___/ ',
+      ' _/ \\_ ',
+    ],
+    description: 'uma chama mais larga cercada por faíscas curiosas',
+  },
+  teen: {
+    body: [
+      ' . ^ . ',
+      ' /^^^\\ ',
+      '/^^^^^\\',
+      '| o o |',
+      '|  w  |',
+      ' \\___/ ',
+      ' _/ \\_ ',
+    ],
+    description: 'uma chama alta e assimétrica com postura inquieta',
+  },
+  adult: {
+    body: [
+      '*  ^  *',
+      ' /^^^\\ ',
+      '/^^^^^\\',
+      '| o o |',
+      '|  w  |',
+      ' \\___/ ',
+      '_/| |\\_',
+    ],
+    description: 'uma labareda desenvolvida com camadas e faíscas laterais',
+  },
+  elder: {
+    body: [
+      '.  ^  .',
+      ' /~~~\\ ',
+      '/^^^^^\\',
+      '| o o |',
+      '|  w  |',
+      ' \\___/ ',
+      '_/|_|\\_',
+    ],
+    description: 'uma chama estável apoiada numa base de fornalha',
+  },
+};
+
+const VISUAL_DESIGNS: Readonly<Record<MascotVisualKey, MascotVisualDesign>> = {
+  idle: {
+    description: 'crepita com energia',
+    topCues: ['.       *      .', '  *        .    '],
+    fps: 2,
+    loop: true,
+  },
+  happy: {
+    description: 'está radiante',
+    mouth: 'u',
+    topCues: ['*      +       *', '  +    *    +  '],
+    fps: 5,
+    loop: false,
+  },
+  sad: {
+    description: 'está com a chama baixa',
+    mouth: 'n',
+    topCues: ['.              .', '                '],
+    bottomCue: '.   .',
+    fps: 1,
+    loop: true,
+  },
+  hungry: {
+    description: 'está com fome',
+    mouth: 'O',
+    topCues: ['      ?         '],
+    bottomCue: '< comida >',
+    fps: 1,
+    loop: true,
+  },
+  sleeping: {
+    description: 'descansa como uma brasa morna',
+    eyes: '-',
+    mouth: '_',
+    topCues: ['          z     ', '        z Z     '],
+    fps: 1,
+    loop: true,
+  },
+  playing: {
+    description: 'solta faíscas enquanto brinca',
+    mouth: 'u',
+    topCues: ['*  +       *   +', '  +   *   +    *'],
+    bottomCue: '/\\',
+    fps: 5,
+    loop: false,
+  },
+  eatingMeal: {
+    description: 'está comendo uma refeição',
+    mouth: 'O',
+    topCues: ['                ', '      <=>       '],
+    bottomCue: '< refeicao >',
+    fps: 4,
+    loop: false,
+  },
+  eatingSnack: {
+    description: 'está comendo um lanche',
+    mouth: 'o',
+    topCues: ['       .        ', '      . *       '],
+    bottomCue: '< lanche >',
+    fps: 5,
+    loop: false,
+  },
+  cleaning: {
+    description: 'sacode a fuligem',
+    mouth: 'u',
+    topCues: ['+              +', '   +        +   '],
+    bottomCue: '~ limpo ~',
+    fps: 5,
+    loop: false,
+  },
+  dirty: {
+    description: 'está coberta de fuligem',
+    mouth: 'n',
+    topCues: ['     ...        '],
+    bottomCue: '... fuligem ...',
+    fps: 1,
+    loop: true,
+  },
+  sick: {
+    description: 'está com a chama instável',
+    eyes: '+',
+    mouth: '~',
+    topCues: ['+              +', '                '],
+    bottomCue: '+ ajuda +',
+    fps: 1,
+    loop: true,
+  },
+  medicine: {
+    description: 'está tomando o remédio',
+    mouth: 'O',
+    topCues: ['       +        ', '      +++       '],
+    bottomCue: '< remedio >',
+    fps: 4,
+    loop: false,
+  },
+  discipline: {
+    description: 'controla suas faíscas para escutar',
+    mouth: '_',
+    topCues: ['       !        ', '      !!!       '],
+    fps: 4,
+    loop: false,
+  },
+  attention: {
+    description: 'quer sua atenção',
+    mouth: 'O',
+    topCues: ['      ! !       ', '     !   !      '],
+    fps: 2,
+    loop: true,
+  },
+  evolving: {
+    description: 'cresce numa nova labareda',
+    eyes: '*',
+    mouth: 'u',
+    topCues: ['<<    +    >>   ', '  <<  *  >>     ', '    <<+>>       '],
+    bottomCue: '>>> chama >>>',
+    fps: 4,
+    loop: false,
+  },
+  dead: {
+    description: 'chegou ao fim de sua jornada',
+    eyes: 'x',
+    mouth: '_',
+    topCues: ['      _____     '],
+    bottomCue: '--- brasa ---',
+    fps: 1,
+    loop: false,
+  },
+};
+
+export const FAISCA_MANIFEST = createMascotManifest({
+  id: 'faisca',
+  name: 'Faísca',
+  canvas: { width: 24, height: 13 },
+  colors: {
+    primary: 'yellow',
+    secondary: 'orange',
+    highlight: 'pale-yellow',
+  },
+  stages: STAGE_DESIGNS,
+  visuals: VISUAL_DESIGNS,
+});

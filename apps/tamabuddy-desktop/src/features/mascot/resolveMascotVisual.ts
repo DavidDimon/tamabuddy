@@ -1,7 +1,9 @@
 import type { TamabuddyState } from '@tamabuddy/tamabuddy-engine';
 
-export type MascotVisualState =
-  | 'egg'
+import type { MascotVisualKey } from './mascotManifest.js';
+
+export type StableMascotVisual = Extract<
+  MascotVisualKey,
   | 'idle'
   | 'sad'
   | 'hungry'
@@ -9,11 +11,12 @@ export type MascotVisualState =
   | 'dirty'
   | 'sick'
   | 'sleeping'
-  | 'dead';
+  | 'dead'
+>;
 
-export function resolveMascotVisual(state: TamabuddyState): MascotVisualState {
+export function resolveMascotVisual(state: TamabuddyState): StableMascotVisual {
   if (state.behavior === 'dead') return 'dead';
-  if (state.behavior === 'egg') return 'egg';
+  if (state.behavior === 'egg') return 'idle';
   if (state.behavior === 'sleeping') return 'sleeping';
   if (state.illness !== null) return 'sick';
   if (state.poopCount > 0) return 'dirty';

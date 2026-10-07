@@ -1,0 +1,212 @@
+import type { Stage } from '@tamabuddy/tamabuddy-engine';
+
+import type { MascotVisualKey } from '../mascotManifest.js';
+import {
+  createMascotManifest,
+  type MascotStageDesign,
+  type MascotVisualDesign,
+} from './createMascotManifest.js';
+
+const STAGE_DESIGNS: Readonly<Record<Stage, MascotStageDesign>> = {
+  egg: {
+    body: [' _______ ', '|0101010|', '|101_101|', '|0101010|', '|_______|'],
+    description: 'um bloco de dados fechado com uma fenda de cursor',
+  },
+  baby: {
+    body: [' /\\_/\\ ', '| o o |', '|  w  |', ' \\___/ ', '  |_|  '],
+    description: 'um pequeno gato digital com cabeça dominante',
+  },
+  child: {
+    body: [
+      ' /\\_/\\ ',
+      '/     \\',
+      '| o o |',
+      '|  w  |',
+      '\\_____/',
+      ' /|_|\\ ',
+      '  / \\  ',
+    ],
+    description: 'um gato digital com corpo e membros compactos',
+  },
+  teen: {
+    body: [
+      ' |   | ',
+      ' /\\_/\\ ',
+      '/     \\',
+      '| o o |',
+      '|  w  |',
+      '\\_____/',
+      '=[|_|]=',
+      '  / \\  ',
+    ],
+    description: 'um terminal felino alto com conectores visíveis',
+  },
+  adult: {
+    body: [
+      ' ||   || ',
+      ' /\\___/\\ ',
+      '/       \\',
+      '| o   o |',
+      '|   w   |',
+      '\\_______/',
+      '=[|___|]=',
+      '  /   \\  ',
+    ],
+    description: 'um gato terminal com chassi reforçado e antenas altas',
+  },
+  elder: {
+    body: [
+      ' ::   :: ',
+      ' /\\___/\\ ',
+      '/=======\\',
+      '| o   o |',
+      '|   w   |',
+      '\\_______/',
+      '=[|___|]=',
+      ' _/   \\_ ',
+    ],
+    description: 'uma forma de arquivo estável com antenas largas',
+  },
+};
+
+const VISUAL_DESIGNS: Readonly<Record<MascotVisualKey, MascotVisualDesign>> = {
+  idle: {
+    description: 'processa o ambiente em silêncio',
+    topCues: ['01     _      10', '  10       01  '],
+    fps: 2,
+    loop: true,
+  },
+  happy: {
+    description: 'registrou um resultado positivo',
+    mouth: 'u',
+    topCues: ['+      OK      +', '  +    ++    +  '],
+    fps: 5,
+    loop: false,
+  },
+  sad: {
+    description: 'está com o sinal baixo',
+    mouth: 'n',
+    topCues: ['-              -', '                '],
+    bottomCue: '_ sinal _',
+    fps: 1,
+    loop: true,
+  },
+  hungry: {
+    description: 'está com fome',
+    mouth: 'O',
+    topCues: ['      ?         '],
+    bottomCue: '< entrada >',
+    fps: 1,
+    loop: true,
+  },
+  sleeping: {
+    description: 'entrou em modo de espera',
+    eyes: '-',
+    mouth: '_',
+    topCues: ['       zZ       ', '     standby    '],
+    fps: 1,
+    loop: true,
+  },
+  playing: {
+    description: 'executa uma rotina de brincadeira',
+    mouth: 'u',
+    topCues: ['01 +       10 + ', ' + 10   + 01   '],
+    bottomCue: '> jogar_',
+    fps: 5,
+    loop: false,
+  },
+  eatingMeal: {
+    description: 'está processando uma refeição',
+    mouth: 'O',
+    topCues: ['                ', '     [====]     '],
+    bottomCue: '< refeicao >',
+    fps: 4,
+    loop: false,
+  },
+  eatingSnack: {
+    description: 'está processando um lanche',
+    mouth: 'o',
+    topCues: ['       .        ', '      [..]      '],
+    bottomCue: '< lanche >',
+    fps: 5,
+    loop: false,
+  },
+  cleaning: {
+    description: 'está limpando seus dados temporários',
+    mouth: 'u',
+    topCues: ['01            10', '   00      00   '],
+    bottomCue: '~ cache ok ~',
+    fps: 5,
+    loop: false,
+  },
+  dirty: {
+    description: 'acumulou dados corrompidos',
+    mouth: 'n',
+    topCues: ['     ???        '],
+    bottomCue: '... erro ...',
+    fps: 1,
+    loop: true,
+  },
+  sick: {
+    description: 'está com uma falha no sistema',
+    eyes: '+',
+    mouth: '~',
+    topCues: ['!!            !!', '                '],
+    bottomCue: '!! falha !!',
+    fps: 1,
+    loop: true,
+  },
+  medicine: {
+    description: 'está aplicando o remédio',
+    mouth: 'O',
+    topCues: ['       +        ', '     patch      '],
+    bottomCue: '< remedio >',
+    fps: 4,
+    loop: false,
+  },
+  discipline: {
+    description: 'interrompe os processos para escutar',
+    mouth: '_',
+    topCues: ['       !        ', '     foco_      '],
+    fps: 4,
+    loop: false,
+  },
+  attention: {
+    description: 'enviou uma solicitação de atenção',
+    mouth: 'O',
+    topCues: ['    ! ping !    ', '     !   !      '],
+    fps: 2,
+    loop: true,
+  },
+  evolving: {
+    description: 'instala uma nova forma',
+    eyes: '*',
+    mouth: 'u',
+    topCues: ['<<   0101   >>  ', '  <<  ++  >>    ', '    <<01>>      '],
+    bottomCue: '>>> update >>>',
+    fps: 4,
+    loop: false,
+  },
+  dead: {
+    description: 'chegou ao fim de sua jornada',
+    eyes: 'x',
+    mouth: '_',
+    topCues: ['      _____     '],
+    bottomCue: '--- offline ---',
+    fps: 1,
+    loop: false,
+  },
+};
+
+export const NEXO_MANIFEST = createMascotManifest({
+  id: 'nexo',
+  name: 'Nexo',
+  canvas: { width: 24, height: 13 },
+  colors: {
+    primary: 'purple',
+    secondary: 'violet',
+    highlight: 'pale-lavender',
+  },
+  stages: STAGE_DESIGNS,
+  visuals: VISUAL_DESIGNS,
+});

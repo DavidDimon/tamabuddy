@@ -1,0 +1,212 @@
+import type { Stage } from '@tamabuddy/tamabuddy-engine';
+
+import type { MascotVisualKey } from '../mascotManifest.js';
+import {
+  createMascotManifest,
+  type MascotStageDesign,
+  type MascotVisualDesign,
+} from './createMascotManifest.js';
+
+const STAGE_DESIGNS: Readonly<Record<Stage, MascotStageDesign>> = {
+  egg: {
+    body: [' .     . ', '  .---.  ', ' /#####\\ ', '|#######|', ' \\_____/ '],
+    description: 'um orbe escuro com duas pontas quase visíveis',
+  },
+  baby: {
+    body: ['  /\\ /\\  ', ' /     \\ ', '| o o |', '|  w  |', ' \\___/ '],
+    description: 'uma pequena sombra redonda com orelhas pontudas',
+  },
+  child: {
+    body: [
+      ' /\\   /\\ ',
+      '/       \\',
+      '| o   o |',
+      '|   w   |',
+      '\\_______/',
+      ' /|   |\\ ',
+      '  /   \\  ',
+    ],
+    description: 'uma sombra compacta com orelhas e membros definidos',
+  },
+  teen: {
+    body: [
+      ' /\\   /\\ ',
+      '/^^\\_/^^\\',
+      '< /   \\ >',
+      ' | o o | ',
+      ' |  w  | ',
+      ' \\_____/ ',
+      ' /|   |\\ ',
+      '  /   \\  ',
+    ],
+    description: 'uma sombra alta com indícios de chifres e asas',
+  },
+  adult: {
+    body: [
+      ' /\\   /\\ ',
+      '/^^\\_/^^\\',
+      '<\\     />',
+      ' | o o | ',
+      ' |  w  | ',
+      ' \\_____/ ',
+      '/|/   \\|\\',
+      ' _/   \\_ ',
+    ],
+    description: 'uma criatura de sombra com chifres e asas revelados',
+  },
+  elder: {
+    body: [
+      ' /\\   /\\ ',
+      '/~~\\_/~~\\',
+      '<\\_____/>',
+      ' | o o | ',
+      ' |  w  | ',
+      ' \\_____/ ',
+      '<<|___|>>',
+      ' _/   \\_ ',
+    ],
+    description: 'um guardião sereno com asas de sombra recolhidas',
+  },
+};
+
+const VISUAL_DESIGNS: Readonly<Record<MascotVisualKey, MascotVisualDesign>> = {
+  idle: {
+    description: 'observa discretamente entre sombras suaves',
+    topCues: ['~              ~', '  ~          ~  '],
+    fps: 1,
+    loop: true,
+  },
+  happy: {
+    description: 'deixa sua alegria aparecer',
+    mouth: 'u',
+    topCues: ['*      +       *', '  +    *    +  '],
+    fps: 5,
+    loop: false,
+  },
+  sad: {
+    description: 'se recolhe nas próprias sombras',
+    mouth: 'n',
+    topCues: ['~              ~', '                '],
+    bottomCue: '.   .',
+    fps: 1,
+    loop: true,
+  },
+  hungry: {
+    description: 'está com fome',
+    mouth: 'O',
+    topCues: ['      ?         '],
+    bottomCue: '< comida >',
+    fps: 1,
+    loop: true,
+  },
+  sleeping: {
+    description: 'descansa dentro de uma sombra tranquila',
+    eyes: '-',
+    mouth: '_',
+    topCues: ['          z     ', '        z Z     '],
+    fps: 1,
+    loop: true,
+  },
+  playing: {
+    description: 'brinca de aparecer e desaparecer',
+    mouth: 'u',
+    topCues: ['~  +       ~   +', '  +   ~   +    ~'],
+    bottomCue: '/\\',
+    fps: 5,
+    loop: false,
+  },
+  eatingMeal: {
+    description: 'está comendo uma refeição',
+    mouth: 'O',
+    topCues: ['                ', '      <=>       '],
+    bottomCue: '< refeicao >',
+    fps: 4,
+    loop: false,
+  },
+  eatingSnack: {
+    description: 'está comendo um lanche',
+    mouth: 'o',
+    topCues: ['       .        ', '      . ~       '],
+    bottomCue: '< lanche >',
+    fps: 5,
+    loop: false,
+  },
+  cleaning: {
+    description: 'deixa a sombra leve e limpa',
+    mouth: 'u',
+    topCues: ['+              +', '   +        +   '],
+    bottomCue: '~ claro ~',
+    fps: 5,
+    loop: false,
+  },
+  dirty: {
+    description: 'acumulou poeira entre as sombras',
+    mouth: 'n',
+    topCues: ['     ...        '],
+    bottomCue: '... poeira ...',
+    fps: 1,
+    loop: true,
+  },
+  sick: {
+    description: 'está com a sombra enfraquecida',
+    eyes: '+',
+    mouth: '~',
+    topCues: ['+              +', '                '],
+    bottomCue: '+ ajuda +',
+    fps: 1,
+    loop: true,
+  },
+  medicine: {
+    description: 'está tomando o remédio',
+    mouth: 'O',
+    topCues: ['       +        ', '      +++       '],
+    bottomCue: '< remedio >',
+    fps: 4,
+    loop: false,
+  },
+  discipline: {
+    description: 'sai da sombra para escutar',
+    mouth: '_',
+    topCues: ['       !        ', '      !!!       '],
+    fps: 4,
+    loop: false,
+  },
+  attention: {
+    description: 'se revela para pedir atenção',
+    mouth: 'O',
+    topCues: ['      ! !       ', '     !   !      '],
+    fps: 2,
+    loop: true,
+  },
+  evolving: {
+    description: 'revela uma nova forma',
+    eyes: '*',
+    mouth: 'u',
+    topCues: ['<<    ~    >>   ', '  <<  *  >>     ', '    <<~>>       '],
+    bottomCue: '>>> revela >>>',
+    fps: 4,
+    loop: false,
+  },
+  dead: {
+    description: 'chegou ao fim de sua jornada',
+    eyes: 'x',
+    mouth: '_',
+    topCues: ['      _____     '],
+    bottomCue: '--- sombra ---',
+    fps: 1,
+    loop: false,
+  },
+};
+
+export const SOMBRIN_MANIFEST = createMascotManifest({
+  id: 'sombrin',
+  name: 'Sombrin',
+  canvas: { width: 24, height: 13 },
+  colors: {
+    primary: 'muted-violet',
+    secondary: 'dark-purple',
+    highlight: 'gray-lavender',
+  },
+  stages: STAGE_DESIGNS,
+  visuals: VISUAL_DESIGNS,
+});

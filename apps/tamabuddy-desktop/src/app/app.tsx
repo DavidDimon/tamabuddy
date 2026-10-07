@@ -18,7 +18,7 @@ const STAGE_LABELS: Readonly<Record<Stage, string>> = {
 const DAY_MS = 24 * 60 * 60 * 1000;
 
 export function App() {
-  const { dispatch, message, state, status } = useTamabuddyDesktop();
+  const { dispatch, message, reaction, state, status } = useTamabuddyDesktop();
   const day =
     Math.floor((state.lastProcessedAt - state.createdAt) / DAY_MS) + 1;
   const handleAction = (command: TamabuddyCommand) => {
@@ -42,7 +42,15 @@ export function App() {
       </section>
 
       <section className="mascot-stage" aria-label="Pingo">
-        <PingoSprite state={state} />
+        <PingoSprite
+          key={
+            reaction === null
+              ? `stable-${state.stage}`
+              : `${reaction.key}-${reaction.sequence}`
+          }
+          reaction={reaction?.key}
+          state={state}
+        />
         <p className="mascot-message">{message}</p>
       </section>
 

@@ -82,8 +82,42 @@
 }
 
 .mascot {
+  --mascot-primary: #65dfe8;
+  --mascot-highlight: #b7fbff;
+  --mascot-glow: 101 223 232;
+
   position: relative;
   margin: 0;
+}
+
+.mascot[data-mascot='faisca'] {
+  --mascot-primary: #f2c94c;
+  --mascot-highlight: #ffe8a3;
+  --mascot-glow: 242 201 76;
+}
+
+.mascot[data-mascot='broto'] {
+  --mascot-primary: #73db7f;
+  --mascot-highlight: #bdf5b7;
+  --mascot-glow: 115 219 127;
+}
+
+.mascot[data-mascot='nexo'] {
+  --mascot-primary: #bd8cff;
+  --mascot-highlight: #e0c8ff;
+  --mascot-glow: 189 140 255;
+}
+
+.mascot[data-mascot='mimo'] {
+  --mascot-primary: #f3dfc4;
+  --mascot-highlight: #ffd7e3;
+  --mascot-glow: 243 223 196;
+}
+
+.mascot[data-mascot='sombrin'] {
+  --mascot-primary: #a997c9;
+  --mascot-highlight: #d2c8df;
+  --mascot-glow: 169 151 201;
 }
 
 .mascot__attention {
@@ -102,12 +136,12 @@
 
 .mascot__art {
   margin: 0;
-  color: #65dfe8;
+  color: var(--mascot-primary);
   font: inherit;
   font-size: 1.1rem;
   line-height: 1.02;
   text-align: left;
-  text-shadow: 0 0 12px rgb(101 223 232 / 28%);
+  text-shadow: 0 0 12px rgb(var(--mascot-glow) / 28%);
   white-space: pre;
 }
 
@@ -118,8 +152,20 @@
 
 .mascot--sick .mascot__art,
 .mascot--dirty .mascot__art,
+.mascot--discipline .mascot__art,
 .mascot--attention .mascot__art {
   color: #f0c96a;
+}
+
+.mascot--happy .mascot__art,
+.mascot--playing .mascot__art,
+.mascot--eatingMeal .mascot__art,
+.mascot--eatingSnack .mascot__art,
+.mascot--cleaning .mascot__art,
+.mascot--medicine .mascot__art,
+.mascot--evolving .mascot__art {
+  color: var(--mascot-highlight);
+  text-shadow: 0 0 16px rgb(var(--mascot-glow) / 55%);
 }
 
 .mascot--dead .mascot__art {
