@@ -33,6 +33,9 @@
   "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx"],
   "references": [
     {
+      "path": "../../libs/tamabuddy-client/tsconfig.lib.json"
+    },
+    {
       "path": "../../libs/tamabuddy-engine/tsconfig.lib.json"
     }
   ]

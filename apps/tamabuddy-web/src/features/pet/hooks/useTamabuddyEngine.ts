@@ -11,6 +11,7 @@ export function useTamabuddyEngine() {
 
   return {
     dispatch: tamabuddyEngineClient.dispatch,
-    snapshot,
+    snapshot: snapshot.state,
+    status: snapshot.status,
   };
 }

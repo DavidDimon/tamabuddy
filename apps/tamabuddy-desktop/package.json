@@ -11,6 +11,7 @@
     "tauri": "tauri"
   },
   "dependencies": {
+    "@tamabuddy/tamabuddy-client": "workspace:*",
     "@tamabuddy/tamabuddy-engine": "workspace:*"
   },
   "devDependencies": {

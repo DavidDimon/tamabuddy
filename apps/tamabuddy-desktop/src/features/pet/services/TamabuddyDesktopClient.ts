@@ -1,17 +1,20 @@
 import {
+  createTamabuddyClient,
+  type TamabuddyClient,
+  type TamabuddyClientSnapshot,
+  type TamabuddyClientStatus,
+} from '@tamabuddy/tamabuddy-client';
+import {
   type Clock,
   type EngineCommandResult,
   LocalStorageTamabuddyRepository,
   SystemClock,
-  Tamabuddy,
   type TamabuddyCommand,
-  TamabuddyEngine,
-  TamabuddyId,
   type TamabuddyRepository,
   type TamabuddyState,
 } from '@tamabuddy/tamabuddy-engine';
 
-export type DesktopClientStatus = 'loading' | 'ready' | 'error';
+export type DesktopClientStatus = TamabuddyClientStatus;
 
 export interface DesktopClientSnapshot {
   readonly state: TamabuddyState;
@@ -20,24 +23,21 @@ export interface DesktopClientSnapshot {
 }
 
 export class TamabuddyDesktopClient {
-  private readonly id = TamabuddyId.create('primary-pet');
-  private readonly engine: TamabuddyEngine;
+  private readonly client: TamabuddyClient;
   private readonly listeners = new Set<() => void>();
   private snapshot: DesktopClientSnapshot;
-  private queue: Promise<void>;
 
   constructor(
     repository: TamabuddyRepository,
     clock: Clock = new SystemClock(),
   ) {
-    const initial = Tamabuddy.create(this.id, clock.now());
-    this.engine = new TamabuddyEngine(clock, repository);
+    this.client = createTamabuddyClient({ repository, clock });
     this.snapshot = {
-      state: initial.snapshot(),
+      state: this.client.getSnapshot().state,
       message: 'Pingo está chegando...',
       status: 'loading',
     };
-    this.queue = this.initialize(repository);
+    this.client.subscribe(this.syncFromClient);
   }
 
   readonly getSnapshot = (): DesktopClientSnapshot => this.snapshot;
@@ -47,20 +47,13 @@ export class TamabuddyDesktopClient {
     return () => this.listeners.delete(listener);
   };
 
-  readonly refresh = async (): Promise<void> => {
-    return this.run(async () => {
-      const state = await this.engine.load(this.id);
-      if (state === null) throw new Error('Primary Tamabuddy is unavailable');
-      this.update({ state, message: this.snapshot.message, status: 'ready' });
-    });
-  };
+  readonly refresh = (): Promise<void> => this.client.refresh();
 
   readonly dispatch = async (
     command: TamabuddyCommand,
   ): Promise<EngineCommandResult> => {
-    return this.run(async () => {
-      const result = await this.engine.command(this.id, command);
-      if (result === null) throw new Error('Primary Tamabuddy is unavailable');
+    try {
+      const result = await this.client.dispatch(command);
       this.update({
         state: result.state,
         message: result.accepted
@@ -69,48 +62,38 @@ export class TamabuddyDesktopClient {
         status: 'ready',
       });
       return result;
-    });
+    } catch (error) {
+      this.syncFromClient();
+      throw error;
+    }
   };
 
-  private async initialize(repository: TamabuddyRepository): Promise<void> {
-    try {
-      const stored = await repository.findById(this.id);
-      const state =
-        stored === null
-          ? await this.engine.create(this.id)
-          : await this.engine.load(this.id);
-      if (state === null) throw new Error('Primary Tamabuddy is unavailable');
-
-      this.update({
-        state,
-        message:
-          stored === null
-            ? 'Pingo está chegando...'
-            : 'Pingo voltou para o seu cantinho.',
-        status: 'ready',
-      });
-    } catch {
-      this.update({
-        ...this.snapshot,
-        message: 'Não foi possível carregar o save local.',
-        status: 'error',
-      });
-    }
-  }
-
-  private run<T>(operation: () => Promise<T>): Promise<T> {
-    const result = this.queue.then(operation);
-    this.queue = result.then(
-      () => undefined,
-      () => undefined,
-    );
-    return result;
-  }
+  private readonly syncFromClient = (): void => {
+    const clientSnapshot = this.client.getSnapshot();
+    this.update({
+      state: clientSnapshot.state,
+      status: clientSnapshot.status,
+      message: statusMessage(clientSnapshot, this.snapshot),
+    });
+  };
 
   private update(snapshot: DesktopClientSnapshot): void {
     this.snapshot = snapshot;
     for (const listener of this.listeners) listener();
   }
+}
+
+function statusMessage(
+  client: TamabuddyClientSnapshot,
+  current: DesktopClientSnapshot,
+): string {
+  if (client.status === 'error') {
+    return 'Não foi possível carregar o save local.';
+  }
+  if (current.status === 'loading' && client.source === 'restored') {
+    return 'Pingo voltou para o seu cantinho.';
+  }
+  return current.message;
 }
 
 function acceptedMessage(command: TamabuddyCommand): string {

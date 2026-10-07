@@ -9,8 +9,9 @@ adapter and is intentionally kept behind the engine's public
 
 - `@tamabuddy/tamabuddy-engine` owns state invariants and aggregate restoration.
 - `LocalStorageTamabuddyRepository` owns JSON and browser-storage translation.
-- `TamabuddyDesktopClient` owns startup orchestration: load an existing pet or
-  create one only when no save exists.
+- `@tamabuddy/tamabuddy-client` owns startup orchestration: load an existing
+  pet or create one only when no save exists.
+- `TamabuddyDesktopClient` translates session status into desktop copy.
 - React renders loading/error states and never repairs persisted data.
 
 ## Save contract

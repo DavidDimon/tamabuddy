@@ -27,4 +27,4 @@ User requirements define the task. Executable behavior in code/tests outranks st
 
 ## Current scope
 
-The workspace contains a React app that observes the engine through its public API, plus a pure TypeScript engine library. Tamabuddy behavior v1.0.0 and the deterministic simulation toolchain are implemented. Check the engine current-state document to distinguish implemented components from approved future extensions.
+The workspace contains web and native desktop React clients, a shared UI-agnostic client session library, and a pure TypeScript engine library. Tamabuddy behavior v1.0.0 and the deterministic simulation toolchain are implemented. Check the engine current-state document to distinguish implemented components from approved future extensions.

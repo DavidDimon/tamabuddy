@@ -4,7 +4,7 @@ describe('TamabuddyEngineClient', () => {
   it('exposes the engine snapshot through the public API boundary', () => {
     const client = createTamabuddyEngineClient({ now: () => 0 });
 
-    expect(client.getSnapshot().behavior).toBe('egg');
+    expect(client.getSnapshot().state.behavior).toBe('egg');
 
     client.stop();
   });

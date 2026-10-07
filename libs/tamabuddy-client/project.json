@@ -1,0 +1,8 @@
+{
+  "name": "@tamabuddy/tamabuddy-client",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/tamabuddy-client/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {}
+}

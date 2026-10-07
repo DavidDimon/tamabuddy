@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
+    "@tamabuddy/tamabuddy-client": "workspace:*",
     "@tamabuddy/tamabuddy-engine": "workspace:*"
   }
 }
