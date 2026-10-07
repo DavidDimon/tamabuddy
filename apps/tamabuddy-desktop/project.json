@@ -1,0 +1,23 @@
+{
+  "name": "@tamabuddy/tamabuddy-desktop",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/tamabuddy-desktop/src",
+  "projectType": "application",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project @tamabuddy/tamabuddy-desktop --web",
+  "targets": {
+    "native:build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm --filter @tamabuddy/tamabuddy-desktop native:build"
+      }
+    },
+    "native:dev": {
+      "continuous": true,
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "pnpm --filter @tamabuddy/tamabuddy-desktop native:dev"
+      }
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "$schema": "../node_modules/@tauri-apps/cli/config.schema.json",
+  "productName": "Tamabuddy",
+  "version": "0.1.0",
+  "identifier": "com.tamabuddy.desktop",
+  "build": {
+    "frontendDist": "../dist",
+    "devUrl": "http://127.0.0.1:4210",
+    "beforeDevCommand": "pnpm --filter @tamabuddy/tamabuddy-desktop dev",
+    "beforeBuildCommand": "pnpm --filter @tamabuddy/tamabuddy-desktop build"
+  },
+  "app": {
+    "windows": [
+      {
+        "title": "Tamabuddy",
+        "width": 360,
+        "height": 620,
+        "minWidth": 320,
+        "minHeight": 520,
+        "resizable": true,
+        "maximizable": false,
+        "alwaysOnTop": true,
+        "center": true,
+        "fullscreen": false
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "category": "Game",
+    "shortDescription": "Um mascote virtual compacto para acompanhar o dia.",
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "android": {
+      "debugApplicationIdSuffix": ".debug"
+    }
+  }
+}

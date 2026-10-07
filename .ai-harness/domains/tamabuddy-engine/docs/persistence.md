@@ -9,7 +9,9 @@
 
 `InMemoryTamabuddyRepository` stores cloned `TamabuddyState` snapshots in a `Map` and restores aggregates through invariant validation. `TamabuddyEngine` saves after create, elapsed load, accepted command, or rejected command with elapsed changes.
 
-This adapter supports tests/development only: no durable serialization, concurrency control, or migration.
+`LocalStorageTamabuddyRepository` persists complete JSON snapshots through an injected string key-value store. It restores every record through the aggregate validator, reports typed read/write/format failures, rejects unknown schema versions, and never replaces an invalid save. Browser clients may inject `window.localStorage`; the engine adapter itself has no DOM dependency.
+
+The in-memory adapter supports tests/development only. The local-storage adapter has no concurrency control or legacy migrations yet.
 
 ## Approved durable boundary
 

@@ -1,0 +1,218 @@
+.desktop-shell {
+  width: min(100%, 360px);
+  min-height: min(620px, 100svh);
+  display: grid;
+  grid-template-rows: auto auto minmax(260px, 1fr) auto;
+  overflow: hidden;
+  color: #c9f6f8;
+  background: #071116;
+  border: 1px solid #3f6873;
+  box-shadow: 0 22px 55px rgb(0 0 0 / 45%);
+}
+
+.identity-bar,
+.status-bar,
+.action-menu {
+  background: #0b181e;
+}
+
+.identity-bar {
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 8px 12px;
+  border-bottom: 1px solid #294852;
+  text-transform: uppercase;
+}
+
+.identity-bar div {
+  display: flex;
+  gap: 9px;
+  align-items: baseline;
+}
+
+.identity-bar span {
+  color: #7ca2aa;
+  font-size: 0.78rem;
+}
+
+.status-bar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 9px 12px;
+  border-bottom: 1px dashed #294852;
+}
+
+.meter span,
+.meter output {
+  display: block;
+}
+
+.meter > span {
+  margin-bottom: 3px;
+  color: #7ca2aa;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+}
+
+.meter output {
+  color: #65dfe8;
+  letter-spacing: 0.08em;
+}
+
+.meter output span {
+  display: inline;
+  color: #355a64;
+}
+
+.mascot-stage {
+  min-height: 0;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 16px;
+  padding: 18px;
+  text-align: center;
+  background:
+    radial-gradient(circle at 50% 45%, rgb(28 95 108 / 24%), transparent 42%),
+    #071116;
+}
+
+.mascot {
+  position: relative;
+  margin: 0;
+}
+
+.mascot__attention {
+  position: absolute;
+  top: -18px;
+  right: -18px;
+  display: grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  color: #071116;
+  background: #f0c96a;
+  border-radius: 50%;
+  font-weight: 700;
+}
+
+.mascot__art {
+  margin: 0;
+  color: #65dfe8;
+  font: inherit;
+  font-size: 1.1rem;
+  line-height: 1.02;
+  text-align: left;
+  text-shadow: 0 0 12px rgb(101 223 232 / 28%);
+  white-space: pre;
+}
+
+.mascot--sleeping .mascot__art,
+.mascot--sad .mascot__art {
+  opacity: 0.72;
+}
+
+.mascot--sick .mascot__art,
+.mascot--dirty .mascot__art,
+.mascot--attention .mascot__art {
+  color: #f0c96a;
+}
+
+.mascot--dead .mascot__art {
+  color: #7d8b90;
+}
+
+.mascot__caption,
+.mascot-message {
+  margin: 10px 0 0;
+}
+
+.mascot__caption {
+  color: #a8d8dc;
+}
+
+.mascot-message {
+  min-height: 2.5em;
+  max-width: 30ch;
+  color: #7ca2aa;
+  font-size: 0.8rem;
+}
+
+.action-menu {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 7px;
+  padding: 10px;
+  border-top: 1px solid #294852;
+}
+
+.action-menu__button {
+  min-height: 38px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 9px;
+  color: #c9f6f8;
+  background: #0f2027;
+  border: 1px solid #31535e;
+  border-radius: 3px;
+  font: inherit;
+  text-align: left;
+}
+
+.action-menu__button:hover:not(:disabled),
+.action-menu__button:focus-visible:not(:disabled) {
+  color: #071116;
+  background: #65dfe8;
+}
+
+.action-menu__button:disabled {
+  color: #55727a;
+  border-color: #263e46;
+}
+
+.action-menu__button kbd {
+  color: #65dfe8;
+  font: inherit;
+}
+
+.action-menu__button:hover:not(:disabled) kbd,
+.action-menu__button:focus-visible:not(:disabled) kbd {
+  color: inherit;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (max-height: 560px) {
+  .desktop-shell {
+    grid-template-rows: auto auto minmax(210px, 1fr) auto;
+  }
+
+  .mascot-stage {
+    padding-block: 8px;
+  }
+
+  .mascot__art {
+    font-size: 0.92rem;
+  }
+}
+
+@media (pointer: coarse) {
+  .action-menu__button {
+    min-height: 44px;
+  }
+}

@@ -8,6 +8,9 @@
     },
     {
       "path": "./libs/tamabuddy-engine"
+    },
+    {
+      "path": "./apps/tamabuddy-desktop"
     }
   ],
   "compilerOptions": {}

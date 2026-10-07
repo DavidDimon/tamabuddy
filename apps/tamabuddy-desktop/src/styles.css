@@ -1,0 +1,36 @@
+:root {
+  color: #c9f6f8;
+  background: #03080b;
+  font-family:
+    'Cascadia Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
+  font-synthesis: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-width: 320px;
+  min-height: 100%;
+  margin: 0;
+}
+
+body {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 50% 20%, rgb(28 95 108 / 18%), transparent 35rem),
+    #03080b;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
