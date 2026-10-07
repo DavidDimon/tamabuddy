@@ -44,3 +44,11 @@ Pingo's water crown is the main emotional secondary channel:
 - lowered when sad or sick;
 - gently curved when sleeping;
 - split into droplets during play or evolution.
+
+## Production manifest
+
+The desktop client implements Pingo as the reference mascot manifest. Every
+engine stage provides the complete shared visual set on a fixed `24 × 13` cell
+canvas. Stable states loop at low frequency; accepted commands use short,
+non-looping reactions; an observed stage change triggers the evolution
+sequence. Reduced-motion mode holds the first meaningful frame.

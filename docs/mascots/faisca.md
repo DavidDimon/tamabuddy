@@ -28,3 +28,10 @@
 | `elder`      | Stable furnace-like flame with slower outer sparks |
 
 Faísca grows through flame complexity rather than losing its compact ember body.
+
+## Production manifest
+
+The desktop catalog implements Faísca on the shared `24 × 13` cell canvas.
+Every engine stage provides the complete visual set, with low-frequency ember
+loops, short accepted-command reactions, a flame-growth evolution sequence,
+and first-frame reduced-motion fallbacks.

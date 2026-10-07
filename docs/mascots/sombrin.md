@@ -28,3 +28,10 @@
 | `elder`      | Composed guardian form with folded shadow wings    |
 
 Sombrin must remain friendly enough for a care game. Darkness comes from mystery and slow visual revelation, not horror imagery.
+
+## Production manifest
+
+The desktop catalog implements Sombrin on the shared `24 × 13` cell canvas.
+Every engine stage provides the complete visual set, revealing horns and folded
+wings gradually while preserving the friendly rounded core. Shadow wisps move
+slowly, reactions stay short, and reduced-motion mode keeps the first frame.

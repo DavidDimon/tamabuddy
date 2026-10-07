@@ -25,6 +25,7 @@ For each non-egg stage, the following visual states are required:
 | `playing`     | Accepted play command          | Short, non-looping reaction         |
 | `eatingMeal`  | Accepted meal command          | Short, non-looping reaction         |
 | `eatingSnack` | Accepted snack command         | Short, non-looping reaction         |
+| `cleaning`    | Accepted clean command         | Short, non-looping reaction         |
 | `dirty`       | Poop requires cleaning         | Static with a separate dirt marker  |
 | `sick`        | Illness exists                 | Static or slow loop                 |
 | `medicine`    | Accepted medicine command      | Short, non-looping reaction         |

@@ -18,11 +18,14 @@ A mascot is ready for implementation when:
 
 ## Current readiness
 
-| Mascot  | Identity | Three guide forms | Six-stage mapping | State set            | Production frames |
-| ------- | -------- | ----------------- | ----------------- | -------------------- | ----------------- |
-| Pingo   | Approved | Approved          | Drafted           | Approved concept set | Draft fallbacks   |
-| Faísca  | Approved | Approved          | Drafted           | Contract only        | Not produced      |
-| Broto   | Approved | Approved          | Drafted           | Contract only        | Not produced      |
-| Nexo    | Approved | Approved          | Drafted           | Contract only        | Not produced      |
-| Mimo    | Approved | Approved          | Drafted           | Contract only        | Not produced      |
-| Sombrin | Approved | Approved          | Drafted           | Contract only        | Not produced      |
+| Mascot  | Identity | Three guide forms | Six-stage mapping | State set   | Production frames |
+| ------- | -------- | ----------------- | ----------------- | ----------- | ----------------- |
+| Pingo   | Approved | Approved          | Implemented       | Implemented | Complete manifest |
+| Faísca  | Approved | Approved          | Implemented       | Implemented | Complete manifest |
+| Broto   | Approved | Approved          | Implemented       | Implemented | Complete manifest |
+| Nexo    | Approved | Approved          | Implemented       | Implemented | Complete manifest |
+| Mimo    | Approved | Approved          | Implemented       | Implemented | Complete manifest |
+| Sombrin | Approved | Approved          | Implemented       | Implemented | Complete manifest |
+
+The six families passed the shared manifest checks and the combined silhouette
+review documented in [`family-review.md`](family-review.md).

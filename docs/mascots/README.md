@@ -42,3 +42,7 @@ The first client is a compact vertical desktop window for Windows and macOS:
 1. Produce and validate Pingo as the reference implementation.
 2. Apply the same manifest and completeness tests to Faísca, Broto, Nexo, Mimo, and Sombrin.
 3. Review all families together at identical canvas size before release.
+
+All three production steps are complete. See the
+[`family-review.md`](family-review.md) comparison for the combined results and
+the remaining product-level selection boundary.

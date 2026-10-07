@@ -28,3 +28,10 @@
 | `elder`      | Seated, calm companion with heavier relaxed ears      |
 
 Mimo's ears are its primary emotional channel and must remain readable without pink color.
+
+## Production manifest
+
+The desktop catalog implements Mimo on the shared `24 × 13` cell canvas. Every
+engine stage provides the complete visual set, keeping the long ears readable
+in monochrome. Hearts are reserved for emotional reactions, accepted commands
+use short sequences, and reduced-motion mode keeps the first meaningful frame.

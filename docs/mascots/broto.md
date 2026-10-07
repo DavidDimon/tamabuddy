@@ -28,3 +28,10 @@
 | `elder`      | Rounded old-tree form with a fuller but quieter canopy |
 
 Broto evolves by adding plant structure while retaining the original round seed body.
+
+## Production manifest
+
+The desktop catalog implements Broto on the shared `24 × 13` cell canvas. Every
+engine stage provides the complete visual set, with slow leaf movement,
+short accepted-command reactions, a growth evolution sequence, and first-frame
+reduced-motion fallbacks.

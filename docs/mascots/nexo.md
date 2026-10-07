@@ -28,3 +28,10 @@
 | `elder`      | Stable archive form with broad ears and slower data effects |
 
 Glitches are animation effects, not changes to the underlying sprite dimensions.
+
+## Production manifest
+
+The desktop catalog implements Nexo on the shared `24 × 13` cell canvas. Every
+engine stage provides the complete visual set, using data fragments, cursor
+signals, and restrained glitches without shifting the body. Accepted commands
+use short reactions, and reduced-motion mode keeps the first meaningful frame.
