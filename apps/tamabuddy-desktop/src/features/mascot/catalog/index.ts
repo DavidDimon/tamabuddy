@@ -20,3 +20,7 @@ export type MascotId = (typeof MASCOT_CATALOG)[number]['id'];
 export function findMascotManifest(id: string): MascotManifest | undefined {
   return MASCOT_CATALOG.find((manifest) => manifest.id === id);
 }
+
+export function isMascotId(id: string): id is MascotId {
+  return findMascotManifest(id) !== undefined;
+}

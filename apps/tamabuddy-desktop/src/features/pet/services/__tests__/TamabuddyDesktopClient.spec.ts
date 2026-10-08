@@ -35,7 +35,7 @@ describe('TamabuddyDesktopClient', () => {
 
     expect(client.getSnapshot()).toMatchObject({
       status: 'ready',
-      message: 'Pingo voltou para o seu cantinho.',
+      message: 'Seu mascote voltou para o cantinho.',
       state: { createdAt: 42 },
     });
   });
@@ -52,6 +52,37 @@ describe('TamabuddyDesktopClient', () => {
     expect(client.getSnapshot()).toMatchObject({
       status: 'error',
       message: 'Não foi possível carregar o save local.',
+    });
+  });
+
+  it('publishes a fresh egg after resetting the game', async () => {
+    const client = new TamabuddyDesktopClient(
+      new InMemoryTamabuddyRepository(),
+      clockAt(100),
+    );
+    await client.refresh();
+
+    await client.reset();
+
+    expect(client.getSnapshot()).toMatchObject({
+      status: 'ready',
+      message: 'O jogo foi reiniciado.',
+      state: { stage: 'egg', createdAt: 100 },
+    });
+  });
+
+  it('publishes a baby and confirmation message after quick hatch', async () => {
+    const client = new TamabuddyDesktopClient(
+      new InMemoryTamabuddyRepository(),
+      clockAt(100),
+    );
+    await client.refresh();
+
+    await expect(client.hatchNow()).resolves.toMatchObject({ hatched: true });
+    expect(client.getSnapshot()).toMatchObject({
+      status: 'ready',
+      message: 'O ovo chocou antes do tempo!',
+      state: { stage: 'baby', hatchedAt: 100 },
     });
   });
 });

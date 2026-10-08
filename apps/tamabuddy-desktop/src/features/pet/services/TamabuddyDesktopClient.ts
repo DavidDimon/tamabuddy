@@ -7,6 +7,7 @@ import {
 import {
   type Clock,
   type EngineCommandResult,
+  type EngineHatchResult,
   LocalStorageTamabuddyRepository,
   SystemClock,
   type TamabuddyCommand,
@@ -34,7 +35,7 @@ export class TamabuddyDesktopClient {
     this.client = createTamabuddyClient({ repository, clock });
     this.snapshot = {
       state: this.client.getSnapshot().state,
-      message: 'Pingo está chegando...',
+      message: 'Seu mascote está chegando...',
       status: 'loading',
     };
     this.client.subscribe(this.syncFromClient);
@@ -48,6 +49,37 @@ export class TamabuddyDesktopClient {
   };
 
   readonly refresh = (): Promise<void> => this.client.refresh();
+
+  readonly hatchNow = async (): Promise<EngineHatchResult> => {
+    try {
+      const result = await this.client.hatchNow();
+      this.update({
+        state: result.state,
+        message: result.hatched
+          ? 'O ovo chocou antes do tempo!'
+          : 'O mascote já saiu do ovo.',
+        status: 'ready',
+      });
+      return result;
+    } catch (error) {
+      this.syncFromClient();
+      throw error;
+    }
+  };
+
+  readonly reset = async (): Promise<void> => {
+    try {
+      const state = await this.client.reset();
+      this.update({
+        state,
+        message: 'O jogo foi reiniciado.',
+        status: 'ready',
+      });
+    } catch (error) {
+      this.syncFromClient();
+      throw error;
+    }
+  };
 
   readonly dispatch = async (
     command: TamabuddyCommand,
@@ -91,7 +123,7 @@ function statusMessage(
     return 'Não foi possível carregar o save local.';
   }
   if (current.status === 'loading' && client.source === 'restored') {
-    return 'Pingo voltou para o seu cantinho.';
+    return 'Seu mascote voltou para o cantinho.';
   }
   return current.message;
 }
@@ -99,19 +131,19 @@ function statusMessage(
 function acceptedMessage(command: TamabuddyCommand): string {
   switch (command.type) {
     case 'feedMeal':
-      return 'Pingo aproveitou a refeição.';
+      return 'Seu mascote aproveitou a refeição.';
     case 'feedSnack':
-      return 'Pingo gostou do lanche.';
+      return 'Seu mascote gostou do lanche.';
     case 'play':
       return command.result === 'win'
-        ? 'Pingo venceu a brincadeira!'
+        ? 'Seu mascote venceu a brincadeira!'
         : 'Foi divertido, mesmo sem vencer.';
     case 'clean':
       return 'Tudo limpo novamente.';
     case 'giveMedicine':
-      return 'Pingo tomou o remédio.';
+      return 'Seu mascote tomou o remédio.';
     case 'discipline':
-      return 'Pingo entendeu o recado.';
+      return 'Seu mascote entendeu o recado.';
     case 'turnLightsOff':
       return 'As luzes foram apagadas.';
   }
@@ -120,21 +152,21 @@ function acceptedMessage(command: TamabuddyCommand): string {
 function rejectionMessage(rejection: EngineCommandResult['rejection']): string {
   switch (rejection) {
     case 'invalid-behavior':
-      return 'Pingo não pode fazer isso agora.';
+      return 'Seu mascote não pode fazer isso agora.';
     case 'sick':
-      return 'Pingo precisa melhorar primeiro.';
+      return 'Seu mascote precisa melhorar primeiro.';
     case 'not-hungry':
-      return 'Pingo não está com fome.';
+      return 'Seu mascote não está com fome.';
     case 'not-unhappy':
-      return 'Pingo já está muito feliz.';
+      return 'Seu mascote já está muito feliz.';
     case 'minimum-weight':
-      return 'Pingo precisa comer antes de brincar.';
+      return 'Seu mascote precisa comer antes de brincar.';
     case 'nothing-to-clean':
       return 'Não há nada para limpar.';
     case 'not-sick':
-      return 'Pingo não precisa de remédio.';
+      return 'Seu mascote não precisa de remédio.';
     case 'no-discipline-call':
-      return 'Pingo não precisa de disciplina.';
+      return 'Seu mascote não precisa de disciplina.';
     case 'no-sleep-call':
       return 'Ainda não é hora de apagar as luzes.';
     case 'requires-cleaning':

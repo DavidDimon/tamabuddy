@@ -51,19 +51,30 @@ export function useTamabuddyDesktop() {
     [showReaction],
   );
 
+  const refresh = useCallback(() => tamabuddyDesktopClient.refresh(), []);
+  const hatchNow = useCallback(async () => {
+    const result = await tamabuddyDesktopClient.hatchNow();
+    if (result.hatched) showReaction('evolving');
+    return result;
+  }, [showReaction]);
+  const reset = useCallback(async () => {
+    setReaction(null);
+    await tamabuddyDesktopClient.reset();
+  }, []);
+
   useEffect(() => {
-    const refresh = () => {
-      void tamabuddyDesktopClient.refresh().catch(() => undefined);
+    const requestRefresh = () => {
+      void refresh().catch(() => undefined);
     };
-    const interval = window.setInterval(refresh, REFRESH_INTERVAL_MS);
-    window.addEventListener('focus', refresh);
-    refresh();
+    const interval = window.setInterval(requestRefresh, REFRESH_INTERVAL_MS);
+    window.addEventListener('focus', requestRefresh);
+    requestRefresh();
 
     return () => {
       window.clearInterval(interval);
-      window.removeEventListener('focus', refresh);
+      window.removeEventListener('focus', requestRefresh);
     };
-  }, []);
+  }, [refresh]);
 
   useEffect(() => {
     if (snapshot.state.stage === previousStage.current) return;
@@ -90,6 +101,9 @@ export function useTamabuddyDesktop() {
   return {
     ...snapshot,
     dispatch,
+    hatchNow,
+    refresh,
     reaction,
+    reset,
   };
 }
