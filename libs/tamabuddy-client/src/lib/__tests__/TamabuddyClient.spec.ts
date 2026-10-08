@@ -57,6 +57,45 @@ describe('TamabuddyClient', () => {
     });
   });
 
+  it('publishes the baby snapshot after quick hatch', async () => {
+    const client = createTamabuddyClient({
+      repository: new InMemoryTamabuddyRepository(),
+      clock: clockAt(100),
+    });
+
+    await expect(client.hatchNow()).resolves.toMatchObject({
+      hatched: true,
+      state: { stage: 'baby', hatchedAt: 100 },
+    });
+    expect(client.getSnapshot().state.stage).toBe('baby');
+  });
+
+  it('resets the primary pet to a new egg at the current time', async () => {
+    let now = 42;
+    const repository = new InMemoryTamabuddyRepository();
+    await repository.save(
+      Tamabuddy.create(TamabuddyId.create('primary-pet'), 10),
+    );
+    const client = createTamabuddyClient({
+      repository,
+      clock: { now: () => now },
+    });
+    await client.refresh();
+    now = 100;
+
+    await expect(client.reset()).resolves.toMatchObject({
+      stage: 'egg',
+      behavior: 'egg',
+      createdAt: 100,
+      lastProcessedAt: 100,
+    });
+    expect(client.getSnapshot()).toMatchObject({
+      status: 'ready',
+      source: 'created',
+      state: { createdAt: 100 },
+    });
+  });
+
   it('publishes failures without silently creating a replacement pet', async () => {
     const failure = new Error('invalid save');
     const client = createTamabuddyClient({

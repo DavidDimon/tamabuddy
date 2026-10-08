@@ -1,6 +1,7 @@
 import {
   type Clock,
   type EngineCommandResult,
+  type EngineHatchResult,
   SystemClock,
   Tamabuddy,
   type TamabuddyCommand,
@@ -68,6 +69,19 @@ export class TamabuddyClient {
       });
     });
 
+  readonly hatchNow = (): Promise<EngineHatchResult> =>
+    this.run(async () => {
+      const result = await this.engine.hatchNow(this.id);
+      if (result === null) throw new Error('Tamabuddy is unavailable');
+      this.update({
+        state: result.state,
+        status: 'ready',
+        source: this.snapshot.source,
+        error: null,
+      });
+      return result;
+    });
+
   readonly dispatch = (
     command: TamabuddyCommand,
   ): Promise<EngineCommandResult> =>
@@ -81,6 +95,18 @@ export class TamabuddyClient {
         error: null,
       });
       return result;
+    });
+
+  readonly reset = (): Promise<TamabuddyState> =>
+    this.run(async () => {
+      const state = await this.engine.create(this.id);
+      this.update({
+        state,
+        status: 'ready',
+        source: 'created',
+        error: null,
+      });
+      return state;
     });
 
   readonly stop = (): void => this.listeners.clear();

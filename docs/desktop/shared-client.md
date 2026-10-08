@@ -9,6 +9,8 @@ instead of duplicating engine startup and command orchestration.
 - create the primary pet only when no stored pet exists;
 - restore and process an existing pet through the engine;
 - serialize initialization, refreshes, and commands;
+- expose quick hatch through the serialized engine lifecycle operation;
+- reset the primary pet through the same serialized engine queue;
 - publish immutable engine snapshots through a subscription API;
 - expose loading, ready, and error states without presentation copy;
 - preserve repository errors so each client can choose its own recovery UI.
