@@ -43,4 +43,34 @@ describe('TamabuddyEngine', () => {
       engine.command(TamabuddyId.create('missing'), { type: 'clean' }),
     ).resolves.toBeNull();
   });
+
+  it('hatches an existing egg immediately and persists the result', async () => {
+    const clock = new FakeClock(MINUTE);
+    const repository = new InMemoryTamabuddyRepository();
+    const engine = new TamabuddyEngine(clock, repository);
+    const id = TamabuddyId.create('quick-hatch');
+    await engine.create(id);
+
+    await expect(engine.hatchNow(id)).resolves.toMatchObject({
+      hatched: true,
+      state: {
+        stage: 'baby',
+        behavior: 'idle',
+        hatchedAt: MINUTE,
+        stageStartedAt: MINUTE,
+      },
+    });
+    expect((await repository.findById(id))?.snapshot().stage).toBe('baby');
+  });
+
+  it('returns null when quick hatch targets an unknown id', async () => {
+    const engine = new TamabuddyEngine(
+      new FakeClock(0),
+      new InMemoryTamabuddyRepository(),
+    );
+
+    await expect(
+      engine.hatchNow(TamabuddyId.create('missing')),
+    ).resolves.toBeNull();
+  });
 });

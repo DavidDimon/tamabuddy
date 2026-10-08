@@ -1,4 +1,4 @@
-# Domain specification v1.0.0
+# Domain specification v1.1.0
 
 This specification defines the first implementable Tamabuddy ruleset. Tamabuddy is this project's own virtual-pet domain and product identity.
 
@@ -42,6 +42,8 @@ Illness is a domain condition, not a top-level behavioral state. This avoids a `
 ## Command outcome
 
 Every command first advances elapsed time to its effective timestamp. A rejected care action has no action effect, but elapsed-time changes remain valid and are persisted atomically with the typed rejection. This prevents a caller from freezing the pet by repeatedly sending invalid actions.
+
+The quick-hatch lifecycle operation is separate from care commands. It first advances elapsed time, transitions a remaining egg through the canonical hatch rule, and reports whether it caused the transition.
 
 ## Architectural mapping
 

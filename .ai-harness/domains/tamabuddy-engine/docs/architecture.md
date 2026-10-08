@@ -2,7 +2,7 @@
 
 ## Status
 
-Domain behavior v1.0.0 and the boundaries below are implemented. Check `current-state.md` for remaining infrastructure/variation work.
+Domain behavior v1.1.0 and the boundaries below are implemented. Check `current-state.md` for remaining infrastructure/variation work.
 
 ## Boundaries
 
@@ -34,7 +34,7 @@ The simulator's durable rationale and compatibility decisions are recorded in [`
 - `Tamabuddy`, `TamabuddyId`;
 - `Clock`, `TamabuddyRepository`;
 - `LoadTamabuddy`, `ElapsedTimeProcessor`, `ElapsedTimeWindow`;
-- `TamabuddyEngine`, `EngineCommandResult`, `TamabuddyCommand`, `ActionRejection`, `TamabuddyState`, and consumer-relevant domain types;
+- `TamabuddyEngine`, `EngineCommandResult`, `EngineHatchResult`, `TamabuddyCommand`, `ActionRejection`, `TamabuddyState`, consumer-relevant domain types, and the `getHatchDeadline` lifecycle query;
 - `SystemClock`, `InMemoryTamabuddyRepository`.
 
 Review this barrel for every addition. Export a type only when consumers need it. Internal rules and helpers stay private.

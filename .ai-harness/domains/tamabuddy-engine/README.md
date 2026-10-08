@@ -1,6 +1,6 @@
 # Tamabuddy engine harness
 
-Entry point for changes to `libs/tamabuddy-engine`. Domain behavior v1.0.0 is implemented; documents remain its formal contract.
+Entry point for changes to `libs/tamabuddy-engine`. Domain behavior v1.1.0 is implemented; documents remain its formal contract.
 
 ## Read before changing the engine
 

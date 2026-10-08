@@ -15,8 +15,10 @@ Verified against `libs/tamabuddy-engine` during Stage 08.
 - The supported `@tamabuddy/tamabuddy-engine/testing` subpath exposes validated durations, deterministic command runs, semantic life events, queryable timelines, the Scenario DSL, simulated-owner strategies, seeded replay, and bounded batch invariant campaigns without entering the package root API. Trace mechanics, arbitrary-state builders, virtual-clock implementation, raw random sources, and normalization helpers remain internal.
 - XState v5 coordinates internal `egg`, `idle`, `sleeping`, and terminal `dead` transitions.
 - `TamabuddyEngine` atomically creates, loads/processes, commands, and saves through repository/Clock ports.
+- `TamabuddyEngine` can quick-hatch a remaining egg through the same canonical hatch transition after processing elapsed time.
 - `InMemoryTamabuddyRepository` stores/restores cloned snapshots; `SystemClock` is the wall-clock adapter.
 - Public API exposes domain commands/state and the engine facade, not raw machine events.
+- Public API exposes the pure `getHatchDeadline` query so clients can present the canonical egg deadline without copying lifecycle duration constants.
 - React observes `TamabuddyState` and dispatches commands through `TamabuddyEngineClient`.
 - The web app's development composition exposes Life Lab for bounded single-life and batch runs, timeline/event inspection, state-series charts, replay copy/rerun, and safe egg/baby presets. A build-resolved virtual module replaces the complete feature with a null stub in production, and an explicit target verifies its marker is absent from JavaScript, CSS, and HTML artifacts.
 - No React import or browser API dependency.

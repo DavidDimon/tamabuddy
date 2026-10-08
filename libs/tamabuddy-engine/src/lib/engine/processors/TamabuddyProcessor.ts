@@ -38,6 +38,11 @@ export interface TamabuddyCommandResult {
   readonly rejection?: ActionRejection;
 }
 
+export interface TamabuddyHatchResult {
+  readonly tamabuddy: Tamabuddy;
+  readonly hatched: boolean;
+}
+
 export interface TamabuddyCommandTraceEntry {
   readonly at: number;
   readonly command: TamabuddyCommand;
@@ -86,6 +91,19 @@ export class TamabuddyProcessor {
     }
 
     return { tamabuddy: Tamabuddy.restore(state), trace };
+  }
+
+  hatchNow(tamabuddy: Tamabuddy): TamabuddyHatchResult {
+    const processed = this.process(tamabuddy);
+    const state = processed.snapshot();
+    if (state.stage !== 'egg') {
+      return { tamabuddy: processed, hatched: false };
+    }
+
+    return {
+      tamabuddy: Tamabuddy.restore(applyHatchTransition(state)),
+      hatched: true,
+    };
   }
 
   command(
@@ -173,11 +191,7 @@ function processBoundary(
     state.stage === 'egg' &&
     at >= state.stageStartedAt + stageDuration('egg')
   ) {
-    state = hatchState(
-      state,
-      at,
-      transitionTamabuddyBehavior(state.behavior, { type: 'HATCH' }),
-    );
+    state = applyHatchTransition(state);
   }
 
   if (
@@ -218,6 +232,14 @@ function processBoundary(
   }
 
   return openHighestPriorityAttention(evolveIfDue(state, at), at);
+}
+
+function applyHatchTransition(state: TamabuddyState): TamabuddyState {
+  return hatchState(
+    state,
+    state.lastProcessedAt,
+    transitionTamabuddyBehavior(state.behavior, { type: 'HATCH' }),
+  );
 }
 
 function nextBoundary(state: TamabuddyState, target: number): number {

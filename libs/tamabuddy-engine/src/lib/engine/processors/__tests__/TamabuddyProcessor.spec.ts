@@ -30,6 +30,35 @@ describe('TamabuddyProcessor', () => {
     });
   });
 
+  it('quick-hatches an egg using the current effective time', () => {
+    const result = new TamabuddyProcessor(new FakeClock(MINUTE)).hatchNow(
+      Tamabuddy.create(TamabuddyId.create('quick-hatch')),
+    );
+
+    expect(result.hatched).toBe(true);
+    expect(result.tamabuddy.snapshot()).toMatchObject({
+      stage: 'baby',
+      behavior: 'idle',
+      hatchedAt: MINUTE,
+      stageStartedAt: MINUTE,
+      hunger: 4,
+      happiness: 4,
+      weight: 5,
+    });
+  });
+
+  it('lets the automatic boundary win when quick hatch arrives at its deadline', () => {
+    const result = new TamabuddyProcessor(new FakeClock(5 * MINUTE)).hatchNow(
+      Tamabuddy.create(TamabuddyId.create('quick-hatch')),
+    );
+
+    expect(result.hatched).toBe(false);
+    expect(result.tamabuddy.snapshot()).toMatchObject({
+      stage: 'baby',
+      hatchedAt: 5 * MINUTE,
+    });
+  });
+
   it('accepts valid meal/play actions and rejects their boundaries', () => {
     const clock = new FakeClock(35 * MINUTE);
     const processor = new TamabuddyProcessor(clock);

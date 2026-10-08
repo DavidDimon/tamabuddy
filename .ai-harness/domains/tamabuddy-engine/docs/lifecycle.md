@@ -1,4 +1,4 @@
-# Lifecycle — specification v1.0.0
+# Lifecycle — specification v1.1.0
 
 ## Stages
 
@@ -15,12 +15,14 @@ Stage age uses elapsed real time, including sleep and offline periods. If sick w
 
 ## Behavioral machine
 
-- `egg`: no care action accepted; hatch is automatic.
+- `egg`: no care action accepted; hatch is automatic at five minutes or may be requested early through the explicit quick-hatch lifecycle operation.
 - `idle`: accepts actions allowed by current needs/condition.
 - `sleeping`: rejects user care actions; wake is automatic.
 - `dead`: terminal; rejects all commands except read/export.
 
 Hatch sets `stage=baby`, `behavior=idle`, hunger and happiness to `4`, health to `4`, discipline to `0`, weight to `5`, and starts baby schedules.
+
+Quick hatch first processes elapsed time through the current injected Clock timestamp. If the pet is still an egg, it applies the same hatch transition and initialization at that timestamp. If automatic hatch already occurred, the operation reports that it made no second transition.
 
 ## Sleep cycle
 

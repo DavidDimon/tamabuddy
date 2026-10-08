@@ -15,6 +15,11 @@ export interface EngineCommandResult {
   readonly rejection?: ActionRejection;
 }
 
+export interface EngineHatchResult {
+  readonly state: TamabuddyState;
+  readonly hatched: boolean;
+}
+
 export class TamabuddyEngine {
   private readonly processor: TamabuddyProcessor;
 
@@ -38,6 +43,18 @@ export class TamabuddyEngine {
     const processed = this.processor.process(stored);
     await this.repository.save(processed);
     return processed.snapshot();
+  }
+
+  async hatchNow(id: TamabuddyId): Promise<EngineHatchResult | null> {
+    const stored = await this.repository.findById(id);
+    if (stored === null) return null;
+
+    const result = this.processor.hatchNow(stored);
+    await this.repository.save(result.tamabuddy);
+    return {
+      state: result.tamabuddy.snapshot(),
+      hatched: result.hatched,
+    };
   }
 
   async command(

@@ -19,9 +19,11 @@ export type {
   ActionRejection,
   TamabuddyCommand,
 } from '../domain/rules/actions.js';
+export { getHatchDeadline } from '../domain/rules/lifecycleQueries.js';
 export {
   TamabuddyEngine,
   type EngineCommandResult,
+  type EngineHatchResult,
 } from '../engine/TamabuddyEngine.js';
 export {
   ElapsedTimeProcessor,
