@@ -1,4 +1,4 @@
-import type { Stage } from '@tamabuddy/tamabuddy-engine';
+import type { DesktopPetStage } from '../../../entities/pet/index.js';
 
 import type { MascotVisualKey } from '../mascotManifest.js';
 import {
@@ -7,7 +7,7 @@ import {
   type MascotVisualDesign,
 } from './createMascotManifest.js';
 
-const STAGE_DESIGNS: Readonly<Record<Stage, MascotStageDesign>> = {
+const STAGE_DESIGNS: Readonly<Record<DesktopPetStage, MascotStageDesign>> = {
   egg: {
     body: [' _______ ', '|0101010|', '|101_101|', '|0101010|', '|_______|'],
     description: 'um bloco de dados fechado com uma fenda de cursor',

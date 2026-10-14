@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 
+import '../pet.css';
+
 const SECOND_MS = 1_000;
 
 export interface HatchCountdownProps {

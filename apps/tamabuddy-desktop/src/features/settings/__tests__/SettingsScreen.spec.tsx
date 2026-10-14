@@ -41,6 +41,23 @@ describe('SettingsScreen', () => {
     ).toBeTruthy();
   });
 
+  it('moves focus into the reset confirmation', () => {
+    render(
+      <SettingsScreen
+        canHatchNow
+        onBack={() => undefined}
+        onHatchNow={() => Promise.resolve()}
+        onReset={() => Promise.resolve()}
+      />,
+    );
+
+    fireEvent.click(screen.getByRole('button', { name: /Reiniciar jogo/ }));
+
+    expect(document.activeElement).toBe(
+      screen.getByRole('button', { name: 'Cancelar' }),
+    );
+  });
+
   it('reports a failed quick hatch and keeps the action available', async () => {
     render(
       <SettingsScreen

@@ -8,7 +8,14 @@
     "dev": "vite",
     "native:build": "tauri build",
     "native:dev": "tauri dev",
-    "tauri": "tauri"
+    "tauri": "tauri",
+    "test:coverage": "vitest --coverage"
+  },
+  "nx": {
+    "tags": [
+      "type:app",
+      "platform:desktop"
+    ]
   },
   "dependencies": {
     "@tamabuddy/tamabuddy-client": "workspace:*",

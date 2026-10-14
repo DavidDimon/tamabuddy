@@ -1,4 +1,4 @@
-import type { Stage } from '@tamabuddy/tamabuddy-engine';
+import type { DesktopPetStage } from '../../../entities/pet/index.js';
 
 import type { MascotVisualKey } from '../mascotManifest.js';
 import {
@@ -7,7 +7,7 @@ import {
   type MascotVisualDesign,
 } from './createMascotManifest.js';
 
-const STAGE_DESIGNS: Readonly<Record<Stage, MascotStageDesign>> = {
+const STAGE_DESIGNS: Readonly<Record<DesktopPetStage, MascotStageDesign>> = {
   egg: {
     body: ['   .   ', '  / \\  ', ' /###\\ ', '|#####|', ' \\___/ '],
     description: 'uma semente fechada com uma pequena fissura',

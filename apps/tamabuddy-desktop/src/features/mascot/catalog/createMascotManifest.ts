@@ -1,5 +1,7 @@
-import type { Stage } from '@tamabuddy/tamabuddy-engine';
-
+import {
+  DESKTOP_PET_STAGES,
+  type DesktopPetStage,
+} from '../../../entities/pet/index.js';
 import {
   MASCOT_VISUAL_KEYS,
   type MascotAnimation,
@@ -27,18 +29,9 @@ export interface MascotManifestDesign {
   readonly name: string;
   readonly canvas: MascotManifest['canvas'];
   readonly colors: MascotManifest['colors'];
-  readonly stages: Readonly<Record<Stage, MascotStageDesign>>;
+  readonly stages: Readonly<Record<DesktopPetStage, MascotStageDesign>>;
   readonly visuals: Readonly<Record<MascotVisualKey, MascotVisualDesign>>;
 }
-
-const STAGES: readonly Stage[] = [
-  'egg',
-  'baby',
-  'child',
-  'teen',
-  'adult',
-  'elder',
-];
 
 export function createMascotManifest<const Design extends MascotManifestDesign>(
   design: Design,
@@ -118,11 +111,11 @@ function center(value: string, width: number): string {
 }
 
 function mapStages<T>(
-  factory: (stage: Stage) => T,
-): Readonly<Record<Stage, T>> {
+  factory: (stage: DesktopPetStage) => T,
+): Readonly<Record<DesktopPetStage, T>> {
   return Object.fromEntries(
-    STAGES.map((stage) => [stage, factory(stage)]),
-  ) as Record<Stage, T>;
+    DESKTOP_PET_STAGES.map((stage) => [stage, factory(stage)]),
+  ) as Record<DesktopPetStage, T>;
 }
 
 function mapVisuals<T>(

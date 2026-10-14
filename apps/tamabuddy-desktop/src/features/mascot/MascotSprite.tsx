@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react';
 
-import type { TamabuddyState } from '@tamabuddy/tamabuddy-engine';
-
+import type { DesktopPet } from '../../entities/pet/index.js';
 import type {
   MascotAnimation,
   MascotManifest,
   MascotVisualKey,
 } from './mascotManifest.js';
+import './mascot.css';
 import { resolveMascotVisual } from './resolveMascotVisual.js';
 
 export interface MascotSpriteProps {
   readonly manifest: MascotManifest;
   readonly reaction?: MascotVisualKey | null;
-  readonly state: TamabuddyState;
+  readonly state: DesktopPet;
 }
 
 export function MascotSprite({
@@ -30,14 +30,14 @@ export function MascotSprite({
       data-mascot={manifest.id}
       data-visual={visual}
     >
-      {state.attention === null ? null : (
+      {state.needsAttention ? (
         <span
           className="mascot__attention"
           aria-label={`${manifest.name} quer atenção`}
         >
           !
         </span>
-      )}
+      ) : null}
       <pre className="mascot__art" aria-hidden="true">
         {animation.frames[frameIndex].art}
       </pre>

@@ -1,4 +1,4 @@
-import { isMascotId, type MascotId } from '../mascot/catalog/index.js';
+import { isMascotId, type MascotId } from '../mascot/index.js';
 
 const PREFERENCES_KEY = 'tamabuddy.desktop.preferences.v1';
 const PREFERENCES_SCHEMA_VERSION = 1;

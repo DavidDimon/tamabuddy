@@ -6,22 +6,24 @@ import {
   useSyncExternalStore,
 } from 'react';
 
-import type {
-  EngineCommandResult,
-  TamabuddyCommand,
+import {
+  getHatchDeadline,
+  type EngineCommandResult,
 } from '@tamabuddy/tamabuddy-engine';
 
+import type { DesktopPetAction } from '../../../entities/pet/index.js';
 import {
   resolveMascotReaction,
   type MascotReaction,
-} from '../../mascot/resolveMascotReaction.js';
+} from '../../mascot/index.js';
+import { toDesktopPet, toTamabuddyCommand } from '../model/toDesktopPet.js';
 import { tamabuddyDesktopClient } from '../services/TamabuddyDesktopClient.js';
 
 const REFRESH_INTERVAL_MS = 30_000;
 const REACTION_DURATION_MS = 1_500;
 const EVOLUTION_DURATION_MS = 2_500;
 
-interface ActiveReaction {
+export interface DesktopReaction {
   readonly key: MascotReaction;
   readonly sequence: number;
 }
@@ -32,7 +34,7 @@ export function useTamabuddyDesktop() {
     tamabuddyDesktopClient.getSnapshot,
     tamabuddyDesktopClient.getSnapshot,
   );
-  const [reaction, setReaction] = useState<ActiveReaction | null>(null);
+  const [reaction, setReaction] = useState<DesktopReaction | null>(null);
   const reactionSequence = useRef(0);
   const previousStage = useRef(snapshot.state.stage);
 
@@ -42,9 +44,10 @@ export function useTamabuddyDesktop() {
   }, []);
 
   const dispatch = useCallback(
-    async (command: TamabuddyCommand): Promise<EngineCommandResult> => {
+    async (action: DesktopPetAction): Promise<EngineCommandResult> => {
+      const command = toTamabuddyCommand(action);
       const result = await tamabuddyDesktopClient.dispatch(command);
-      const nextReaction = resolveMascotReaction(command, result.accepted);
+      const nextReaction = resolveMascotReaction(action, result.accepted);
       if (nextReaction !== null) showReaction(nextReaction);
       return result;
     },
@@ -101,9 +104,11 @@ export function useTamabuddyDesktop() {
   return {
     ...snapshot,
     dispatch,
+    hatchDeadline: getHatchDeadline(snapshot.state),
     hatchNow,
     refresh,
     reaction,
     reset,
+    state: toDesktopPet(snapshot.state),
   };
 }

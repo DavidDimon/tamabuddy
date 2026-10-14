@@ -1,0 +1,99 @@
+.status-bar,
+.action-menu {
+  background: var(--color-surface);
+}
+
+.status-bar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 9px 12px;
+  border-bottom: 1px dashed var(--color-border);
+}
+
+.meter span,
+.meter output {
+  display: block;
+}
+
+.meter > span {
+  margin-bottom: 3px;
+  color: var(--color-muted);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+}
+
+.meter output {
+  color: var(--color-accent);
+  letter-spacing: 0.08em;
+}
+
+.meter output span {
+  display: inline;
+  color: #355a64;
+}
+
+.hatch-countdown {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+}
+
+.hatch-countdown output {
+  color: var(--color-accent);
+  font-size: 1rem;
+  letter-spacing: 0.12em;
+}
+
+.action-menu {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 7px;
+  padding: 10px;
+  border-top: 1px solid var(--color-border);
+}
+
+.action-menu__button {
+  min-height: 38px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 9px;
+  color: var(--color-text);
+  background: var(--color-control);
+  border: 1px solid var(--color-control-border);
+  border-radius: 3px;
+  font: inherit;
+  text-align: left;
+}
+
+.action-menu__button:hover:not(:disabled),
+.action-menu__button:focus-visible:not(:disabled) {
+  color: var(--color-shell);
+  background: var(--color-accent);
+}
+
+.action-menu__button:disabled {
+  color: #55727a;
+  border-color: #263e46;
+  opacity: 0.72;
+}
+
+.action-menu__button kbd {
+  color: var(--color-accent);
+  font: inherit;
+}
+
+.action-menu__button:hover:not(:disabled) kbd,
+.action-menu__button:focus-visible:not(:disabled) kbd {
+  color: inherit;
+}
+
+@media (pointer: coarse) {
+  .action-menu__button {
+    min-height: 44px;
+  }
+}

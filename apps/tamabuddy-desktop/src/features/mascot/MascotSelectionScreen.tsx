@@ -1,4 +1,5 @@
 import { MASCOT_CATALOG, type MascotId } from './catalog/index.js';
+import './mascot.css';
 
 export interface MascotSelectionScreenProps {
   readonly error: string | null;
@@ -34,7 +35,11 @@ export function MascotSelectionScreen({
         ))}
       </section>
 
-      <p aria-live="polite" className="selection-screen__message">
+      <p
+        aria-live="polite"
+        className="selection-screen__message"
+        role={error === null ? 'status' : 'alert'}
+      >
         {error}
       </p>
     </main>

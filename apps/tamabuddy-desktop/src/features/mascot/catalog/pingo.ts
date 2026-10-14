@@ -1,4 +1,4 @@
-import type { Stage } from '@tamabuddy/tamabuddy-engine';
+import type { DesktopPetStage } from '../../../entities/pet/index.js';
 
 import type { MascotVisualKey } from '../mascotManifest.js';
 import {
@@ -10,7 +10,7 @@ import {
 const CANVAS_WIDTH = 24;
 const CANVAS_HEIGHT = 13;
 
-const STAGE_DESIGNS: Readonly<Record<Stage, MascotStageDesign>> = {
+const STAGE_DESIGNS: Readonly<Record<DesktopPetStage, MascotStageDesign>> = {
   egg: {
     body: ['   .   ', ' .:::. ', '.:::::.', ':::::::', "'-----'"],
     description: 'um pequeno núcleo de água com uma coroa pontuda',

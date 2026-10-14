@@ -1,19 +1,24 @@
-import { Tamabuddy, TamabuddyId } from '@tamabuddy/tamabuddy-engine';
-
+import type { DesktopPet } from '../../../entities/pet/index.js';
 import { resolveMascotVisual } from '../resolveMascotVisual.js';
 
 describe('resolveMascotVisual', () => {
-  const egg = Tamabuddy.create(TamabuddyId.create('pingo'), 0).snapshot();
-  const awake = {
-    ...egg,
-    stage: 'child' as const,
-    behavior: 'idle' as const,
-    hatchedAt: 60_000,
-    stageStartedAt: 60_000,
-    lastProcessedAt: 60_000,
-    hunger: 4,
+  const egg: DesktopPet = {
+    behavior: 'egg',
+    createdAt: 0,
     happiness: 4,
-    weight: 10,
+    health: 4,
+    hunger: 4,
+    isIll: false,
+    lastProcessedAt: 0,
+    needsAttention: false,
+    poopCount: 0,
+    stage: 'egg',
+  };
+  const awake: DesktopPet = {
+    ...egg,
+    stage: 'child',
+    behavior: 'idle',
+    lastProcessedAt: 60_000,
   };
 
   it('keeps terminal behaviors above need presentation', () => {
@@ -25,12 +30,7 @@ describe('resolveMascotVisual', () => {
     expect(
       resolveMascotVisual({
         ...awake,
-        illness: {
-          cause: 'weakness',
-          startedAt: 60_000,
-          medicineDoses: 0,
-          nextDamageAt: 3_660_000,
-        },
+        isIll: true,
         poopCount: 1,
       }),
     ).toBe('sick');
@@ -38,11 +38,7 @@ describe('resolveMascotVisual', () => {
     expect(
       resolveMascotVisual({
         ...awake,
-        attention: {
-          reason: 'happiness',
-          openedAt: 60_000,
-          expiresAt: 120_000,
-        },
+        needsAttention: true,
       }),
     ).toBe('attention');
     expect(resolveMascotVisual({ ...awake, hunger: 0 })).toBe('hungry');

@@ -1,5 +1,4 @@
-import type { TamabuddyCommand } from '@tamabuddy/tamabuddy-engine';
-
+import type { DesktopPetAction } from '../../entities/pet/index.js';
 import type { MascotVisualKey } from './mascotManifest.js';
 
 export type MascotReaction = Extract<
@@ -14,12 +13,12 @@ export type MascotReaction = Extract<
 >;
 
 export function resolveMascotReaction(
-  command: TamabuddyCommand,
+  action: DesktopPetAction,
   accepted: boolean,
 ): MascotReaction | null {
   if (!accepted) return null;
 
-  switch (command.type) {
+  switch (action) {
     case 'feedMeal':
       return 'eatingMeal';
     case 'feedSnack':

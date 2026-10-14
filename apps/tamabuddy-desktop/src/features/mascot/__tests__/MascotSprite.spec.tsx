@@ -2,12 +2,15 @@ import { render, screen } from '@testing-library/react';
 
 import { Tamabuddy, TamabuddyId } from '@tamabuddy/tamabuddy-engine';
 
+import { toDesktopPet } from '../../pet/model/toDesktopPet.js';
 import { MASCOT_CATALOG } from '../catalog/index.js';
 import { MascotSprite } from '../MascotSprite.js';
 import { PingoSprite } from '../PingoSprite.js';
 
 describe('MascotSprite', () => {
-  const state = Tamabuddy.create(TamabuddyId.create('pingo'), 0).snapshot();
+  const state = toDesktopPet(
+    Tamabuddy.create(TamabuddyId.create('pingo'), 0).snapshot(),
+  );
 
   it('renders the stable visual selected from the engine snapshot', () => {
     const { container } = render(<PingoSprite state={state} />);

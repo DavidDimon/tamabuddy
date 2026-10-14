@@ -1,4 +1,4 @@
-import type { Stage } from '@tamabuddy/tamabuddy-engine';
+import type { DesktopPetStage } from '../../entities/pet/index.js';
 
 export const MASCOT_VISUAL_KEYS = [
   'idle',
@@ -49,5 +49,5 @@ export interface MascotManifest {
     readonly secondary: string;
     readonly highlight: string;
   };
-  readonly stages: Readonly<Record<Stage, MascotStageManifest>>;
+  readonly stages: Readonly<Record<DesktopPetStage, MascotStageManifest>>;
 }

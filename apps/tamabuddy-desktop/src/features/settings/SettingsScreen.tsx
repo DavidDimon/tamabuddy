@@ -1,5 +1,7 @@
 import { useEffect, useState } from 'react';
 
+import './settings.css';
+
 export interface SettingsScreenProps {
   readonly canHatchNow: boolean;
   readonly disabled?: boolean;
@@ -95,6 +97,7 @@ export function SettingsScreen({
             <p>O mascote voltará a ser um ovo e você fará uma nova escolha.</p>
             <div>
               <button
+                autoFocus
                 disabled={hatching || resetting}
                 onClick={() => setConfirmingReset(false)}
                 type="button"
@@ -123,7 +126,11 @@ export function SettingsScreen({
           </button>
         )}
 
-        <p aria-live="polite" className="settings-error">
+        <p
+          aria-live="polite"
+          className="settings-error"
+          role={error === null ? 'status' : 'alert'}
+        >
           {error}
         </p>
       </section>

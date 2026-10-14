@@ -1,6 +1,24 @@
 :root {
-  color: #c9f6f8;
-  background: #03080b;
+  --color-canvas: #03080b;
+  --color-shell: #071116;
+  --color-surface: #0b181e;
+  --color-control: #0f2027;
+  --color-danger-surface: #251614;
+  --color-border: #294852;
+  --color-control-border: #31535e;
+  --color-strong-border: #3f6873;
+  --color-accent: #65dfe8;
+  --color-muted: #7ca2aa;
+  --color-danger-border: #7d4037;
+  --color-text: #c9f6f8;
+  --color-warning: #f0c96a;
+  --color-danger: #f4b9ad;
+  --color-focus: #effdff;
+  --motion-fast: 120ms;
+  --motion-standard: 180ms;
+
+  color: var(--color-text);
+  background: var(--color-canvas);
   font-family:
     'Cascadia Mono', 'SFMono-Regular', Consolas, 'Liberation Mono', monospace;
   font-synthesis: none;
@@ -19,18 +37,56 @@ body,
 }
 
 body {
-  min-height: 100svh;
+  min-height: 100dvh;
   display: grid;
   place-items: center;
   background:
     radial-gradient(circle at 50% 20%, rgb(28 95 108 / 18%), transparent 35rem),
-    #03080b;
+    var(--color-canvas);
+}
+
+body::before {
+  position: fixed;
+  z-index: 1;
+  inset: 0;
+  pointer-events: none;
+  content: '';
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 3px,
+    rgb(101 223 232 / 1.5%) 4px
+  );
 }
 
 button {
   cursor: pointer;
+  transition:
+    color var(--motion-fast) ease-out,
+    background-color var(--motion-fast) ease-out,
+    border-color var(--motion-fast) ease-out,
+    transform var(--motion-fast) ease-out;
 }
 
 button:disabled {
   cursor: not-allowed;
+}
+
+button:focus-visible {
+  z-index: 2;
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
 }

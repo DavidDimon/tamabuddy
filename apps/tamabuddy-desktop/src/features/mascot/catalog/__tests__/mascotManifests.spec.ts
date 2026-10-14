@@ -1,22 +1,12 @@
-import type { Stage } from '@tamabuddy/tamabuddy-engine';
-
+import { DESKTOP_PET_STAGES } from '../../../../entities/pet/index.js';
 import { MASCOT_VISUAL_KEYS } from '../../mascotManifest.js';
 import { findMascotManifest, MASCOT_CATALOG } from '../index.js';
 
-const STAGES: readonly Stage[] = [
-  'egg',
-  'baby',
-  'child',
-  'teen',
-  'adult',
-  'elder',
-];
-
 describe.each(MASCOT_CATALOG)('$name manifest', (manifest) => {
   it('provides every visual for every engine stage', () => {
-    expect(Object.keys(manifest.stages)).toEqual(STAGES);
+    expect(Object.keys(manifest.stages)).toEqual(DESKTOP_PET_STAGES);
 
-    for (const stage of STAGES) {
+    for (const stage of DESKTOP_PET_STAGES) {
       expect(Object.keys(manifest.stages[stage].animations)).toEqual(
         MASCOT_VISUAL_KEYS,
       );
@@ -26,7 +16,7 @@ describe.each(MASCOT_CATALOG)('$name manifest', (manifest) => {
   it('keeps every frame inside the fixed terminal canvas', () => {
     const { height, width } = manifest.canvas;
 
-    for (const stage of STAGES) {
+    for (const stage of DESKTOP_PET_STAGES) {
       for (const visual of MASCOT_VISUAL_KEYS) {
         const animation = manifest.stages[stage].animations[visual];
 
@@ -60,7 +50,7 @@ describe.each(MASCOT_CATALOG)('$name manifest', (manifest) => {
         ].includes(visual),
     );
 
-    for (const stage of STAGES) {
+    for (const stage of DESKTOP_PET_STAGES) {
       for (const visual of transientVisuals) {
         const animation = manifest.stages[stage].animations[visual];
         const duration = (animation.frames.length - 1) / animation.fps;
@@ -90,7 +80,7 @@ describe('MASCOT_CATALOG', () => {
   it('uses one shared canvas and portable ASCII frames', () => {
     for (const manifest of MASCOT_CATALOG) {
       expect(manifest.canvas).toEqual({ width: 24, height: 13 });
-      for (const stage of STAGES) {
+      for (const stage of DESKTOP_PET_STAGES) {
         for (const visual of MASCOT_VISUAL_KEYS) {
           for (const frame of manifest.stages[stage].animations[visual]
             .frames) {
@@ -102,7 +92,7 @@ describe('MASCOT_CATALOG', () => {
   });
 
   it('keeps every family silhouette distinct at equivalent stages', () => {
-    for (const stage of STAGES) {
+    for (const stage of DESKTOP_PET_STAGES) {
       const idleFrames = MASCOT_CATALOG.map(
         (manifest) => manifest.stages[stage].animations.idle.frames[0].art,
       );

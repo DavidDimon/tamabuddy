@@ -1,0 +1,178 @@
+.selection-screen {
+  grid-template-rows: auto 1fr auto;
+  padding: 18px;
+}
+
+.selection-screen__header {
+  text-align: center;
+}
+
+.selection-screen__header span {
+  color: var(--color-accent);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+}
+
+.selection-screen__header h1 {
+  margin: 8px 0;
+  font-size: 1.15rem;
+  text-transform: uppercase;
+}
+
+.selection-screen__header p,
+.selection-screen__message {
+  color: var(--color-muted);
+  font-size: 0.78rem;
+}
+
+.mascot-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-content: center;
+  gap: 8px;
+}
+
+.mascot-option {
+  --mascot-primary: var(--color-accent);
+
+  min-width: 0;
+  padding: 8px 4px;
+  overflow: hidden;
+  color: var(--mascot-primary);
+  background: var(--color-surface);
+  border: 1px solid var(--color-control-border);
+  border-radius: 3px;
+  font: inherit;
+}
+
+.mascot-option:hover,
+.mascot-option:focus-visible {
+  color: var(--color-shell);
+  background: var(--mascot-primary);
+}
+
+.mascot-option pre {
+  margin: 0 auto 5px;
+  font: inherit;
+  font-size: 0.46rem;
+  line-height: 1;
+}
+
+.mascot-option strong {
+  color: inherit;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+}
+
+.selection-screen__message {
+  min-height: 2.5em;
+  margin: 8px 0 0;
+  color: var(--color-warning);
+  text-align: center;
+}
+
+.mascot {
+  --mascot-primary: var(--color-accent);
+  --mascot-highlight: #b7fbff;
+  --mascot-glow: 101 223 232;
+
+  position: relative;
+  margin: 0;
+}
+
+[data-mascot='faisca'] {
+  --mascot-primary: #f2c94c;
+  --mascot-highlight: #ffe8a3;
+  --mascot-glow: 242 201 76;
+}
+
+[data-mascot='broto'] {
+  --mascot-primary: #73db7f;
+  --mascot-highlight: #bdf5b7;
+  --mascot-glow: 115 219 127;
+}
+
+[data-mascot='nexo'] {
+  --mascot-primary: #bd8cff;
+  --mascot-highlight: #e0c8ff;
+  --mascot-glow: 189 140 255;
+}
+
+[data-mascot='mimo'] {
+  --mascot-primary: #f3dfc4;
+  --mascot-highlight: #ffd7e3;
+  --mascot-glow: 243 223 196;
+}
+
+[data-mascot='sombrin'] {
+  --mascot-primary: #a997c9;
+  --mascot-highlight: #d2c8df;
+  --mascot-glow: 169 151 201;
+}
+
+.mascot__attention {
+  position: absolute;
+  top: -18px;
+  right: -18px;
+  display: grid;
+  width: 24px;
+  height: 24px;
+  place-items: center;
+  color: var(--color-shell);
+  background: var(--color-warning);
+  border-radius: 50%;
+  font-weight: 700;
+}
+
+.mascot__art {
+  margin: 0;
+  color: var(--mascot-primary);
+  font: inherit;
+  font-size: 1.1rem;
+  line-height: 1.02;
+  text-align: left;
+  text-shadow: 0 0 12px rgb(var(--mascot-glow) / 28%);
+  white-space: pre;
+}
+
+.mascot--sleeping .mascot__art,
+.mascot--sad .mascot__art {
+  opacity: 0.72;
+}
+
+.mascot--sick .mascot__art,
+.mascot--dirty .mascot__art,
+.mascot--discipline .mascot__art,
+.mascot--attention .mascot__art {
+  color: var(--color-warning);
+}
+
+.mascot--happy .mascot__art,
+.mascot--playing .mascot__art,
+.mascot--eatingMeal .mascot__art,
+.mascot--eatingSnack .mascot__art,
+.mascot--cleaning .mascot__art,
+.mascot--medicine .mascot__art,
+.mascot--evolving .mascot__art {
+  color: var(--mascot-highlight);
+  text-shadow: 0 0 16px rgb(var(--mascot-glow) / 55%);
+}
+
+.mascot--dead .mascot__art {
+  color: #7d8b90;
+}
+
+.mascot__caption {
+  margin: 10px 0 0;
+  color: #a8d8dc;
+}
+
+@media (max-height: 560px) {
+  .mascot__art {
+    font-size: 0.72rem;
+  }
+
+  .mascot__caption {
+    margin-top: 6px;
+  }
+}
