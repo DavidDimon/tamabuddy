@@ -3,6 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "agent:run": "node tools/agent-command.mjs",
+    "agent:run:spec": "node --test tools/__tests__/agent-command.spec.mjs",
     "baseline:agent": "node tools/agent-baseline.mjs",
     "build": "nx run-many -t build",
     "typecheck": "nx run-many -t typecheck",

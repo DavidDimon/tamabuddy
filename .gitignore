@@ -30,6 +30,7 @@ node_modules
 /connect.lock
 /coverage
 /.ai-harness/.baseline-runs/
+/.ai-harness/.agent-runs/
 /apps/*/test-output/
 /libpeerconnection.log
 .env

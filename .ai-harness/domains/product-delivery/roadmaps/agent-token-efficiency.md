@@ -80,6 +80,12 @@ O roadmap termina com:
 
 ### 2. Tornar comandos de agente silenciosos e direcionados
 
+Status: completed on 2026-10-14. `pnpm agent:run` now provides compact project
+discovery and focused Nx checks, keeps full ignored logs, and exposes a verbose
+fallback. All five applicable baseline scenarios reduced command output by at
+least 61%; see
+[`compact-commands-2026-10-14.md`](../baselines/agent-context/compact-commands-2026-10-14.md).
+
 - Outcome: impedir que descoberta, testes e Nx despejem saída irrelevante no
   contexto.
 - Entry conditions: baseline do milestone 1 disponível.

@@ -19,6 +19,30 @@ pnpm baseline:agent desktop-small-change
 pnpm baseline:agent --validate
 ```
 
+## Compact agent commands
+
+Use the agent entrypoint for project discovery and focused development checks.
+Existing human-facing scripts keep their normal output.
+
+```sh
+pnpm agent:run project @tamabuddy/tamabuddy-desktop
+pnpm agent:run check test @tamabuddy/tamabuddy-desktop --file src/app/app.spec.tsx
+pnpm agent:run check lint @tamabuddy/tamabuddy-desktop
+pnpm agent:run all test:coverage
+```
+
+The command disables the Nx daemon and isolated plugin workers for the current
+process, summarizes success in one line, and stores complete output under the
+ignored `.ai-harness/.agent-runs/` directory. Focused test checks use Vitest's
+dot reporter. Add Nx arguments after `--` when a check needs them.
+
+On failure, the entrypoint prints the last diagnostic lines plus the full log
+path. Inspect that log first; rerun the same command with `--verbose` if the
+summary hides the cause. Use project or file scope while developing. Reserve
+`pnpm agent:run all <target>` for milestone closure. Human-facing workspace
+scripts such as `pnpm test:coverage`, `pnpm lint`, `pnpm typecheck`, and `pnpm
+build` remain unchanged when interactive output is useful.
+
 The collector reads `scenarios.json`, counts the declared documentation and
 code inputs, runs the declared discovery or gate commands once, and writes a
 JSON report plus full command logs to `.ai-harness/.baseline-runs/`. That

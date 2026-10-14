@@ -23,13 +23,7 @@
         {
           "label": "project discovery",
           "executable": "pnpm",
-          "args": [
-            "nx",
-            "show",
-            "project",
-            "@tamabuddy/tamabuddy-desktop",
-            "--json"
-          ]
+          "args": ["agent:run", "project", "@tamabuddy/tamabuddy-desktop"]
         }
       ]
     },
@@ -57,10 +51,11 @@
           "label": "focused settings test",
           "executable": "pnpm",
           "args": [
-            "nx",
+            "agent:run",
+            "check",
             "test",
             "@tamabuddy/tamabuddy-desktop",
-            "--run",
+            "--file",
             "src/features/settings/__tests__/SettingsScreen.spec.tsx"
           ]
         }
@@ -93,10 +88,11 @@
           "label": "focused entity test",
           "executable": "pnpm",
           "args": [
-            "nx",
+            "agent:run",
+            "check",
             "test",
             "@tamabuddy/tamabuddy-engine",
-            "--run",
+            "--file",
             "src/lib/engine/processors/__tests__/TamabuddyProcessor.spec.ts"
           ]
         }
@@ -149,13 +145,7 @@
         {
           "label": "project discovery",
           "executable": "pnpm",
-          "args": [
-            "nx",
-            "show",
-            "project",
-            "@tamabuddy/tamabuddy-desktop",
-            "--json"
-          ]
+          "args": ["agent:run", "project", "@tamabuddy/tamabuddy-desktop"]
         }
       ]
     },
@@ -183,10 +173,11 @@
           "label": "focused mascot test",
           "executable": "pnpm",
           "args": [
-            "nx",
+            "agent:run",
+            "check",
             "test",
             "@tamabuddy/tamabuddy-desktop",
-            "--run",
+            "--file",
             "src/features/mascot/__tests__/MascotSprite.spec.tsx"
           ]
         }
