@@ -31,6 +31,9 @@ node_modules
 /coverage
 /apps/*/test-output/
 /libpeerconnection.log
+.env
+.env.*
+!.env.example
 npm-debug.log
 yarn-error.log
 testem.log
