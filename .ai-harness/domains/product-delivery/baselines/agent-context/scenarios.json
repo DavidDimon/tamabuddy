@@ -1,0 +1,196 @@
+{
+  "version": 1,
+  "scenarios": [
+    {
+      "id": "desktop-change-location",
+      "class": "location",
+      "description": "Locate the owner of a desktop presentation change.",
+      "inputs": {
+        "documentation": [
+          ".ai-harness/README.md",
+          ".ai-harness/core/workflows/change-retrieval.md",
+          ".ai-harness/domains/tamabuddy-desktop/README.md",
+          ".ai-harness/domains/tamabuddy-desktop/docs/current-state.md",
+          ".ai-harness/domains/tamabuddy-desktop/docs/architecture.md",
+          ".ai-harness/domains/tamabuddy-desktop/docs/extension-points.md"
+        ],
+        "code": [
+          "apps/tamabuddy-desktop/src/features/pet/services/TamabuddyDesktopClient.ts",
+          "apps/tamabuddy-desktop/src/features/pet/services/__tests__/TamabuddyDesktopClient.spec.ts"
+        ]
+      },
+      "commands": [
+        {
+          "label": "project discovery",
+          "executable": "pnpm",
+          "args": [
+            "nx",
+            "show",
+            "project",
+            "@tamabuddy/tamabuddy-desktop",
+            "--json"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "desktop-small-change",
+      "class": "implementation",
+      "description": "Make and verify a focused desktop settings change.",
+      "inputs": {
+        "documentation": [
+          ".ai-harness/README.md",
+          ".ai-harness/core/workflows/change-retrieval.md",
+          ".ai-harness/core/skills/minimal-change/SKILL.md",
+          ".ai-harness/domains/tamabuddy-desktop/README.md",
+          ".ai-harness/domains/tamabuddy-desktop/docs/current-state.md",
+          ".ai-harness/domains/tamabuddy-desktop/docs/dependency-rules.md",
+          ".ai-harness/domains/tamabuddy-desktop/docs/extension-points.md"
+        ],
+        "code": [
+          "apps/tamabuddy-desktop/src/features/settings/SettingsScreen.tsx",
+          "apps/tamabuddy-desktop/src/features/settings/__tests__/SettingsScreen.spec.tsx"
+        ]
+      },
+      "commands": [
+        {
+          "label": "focused settings test",
+          "executable": "pnpm",
+          "args": [
+            "nx",
+            "test",
+            "@tamabuddy/tamabuddy-desktop",
+            "--run",
+            "src/features/settings/__tests__/SettingsScreen.spec.tsx"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "engine-domain-change",
+      "class": "implementation",
+      "description": "Locate and verify a focused engine domain rule change.",
+      "inputs": {
+        "documentation": [
+          ".ai-harness/README.md",
+          ".ai-harness/core/workflows/change-retrieval.md",
+          ".ai-harness/domains/tamabuddy-engine/README.md",
+          ".ai-harness/domains/tamabuddy-engine/docs/current-state.md",
+          ".ai-harness/domains/tamabuddy-engine/docs/domain-model.md",
+          ".ai-harness/domains/tamabuddy-engine/docs/actions.md",
+          ".ai-harness/domains/tamabuddy-engine/docs/invariants.md",
+          ".ai-harness/domains/tamabuddy-engine/docs/architecture.md",
+          ".ai-harness/domains/tamabuddy-engine/docs/extension-points.md",
+          ".ai-harness/domains/tamabuddy-engine/rules/dependency-boundaries.md"
+        ],
+        "code": [
+          "libs/tamabuddy-engine/src/lib/domain/rules/actions.ts",
+          "libs/tamabuddy-engine/src/lib/engine/processors/__tests__/TamabuddyProcessor.spec.ts"
+        ]
+      },
+      "commands": [
+        {
+          "label": "focused entity test",
+          "executable": "pnpm",
+          "args": [
+            "nx",
+            "test",
+            "@tamabuddy/tamabuddy-engine",
+            "--run",
+            "src/lib/engine/processors/__tests__/TamabuddyProcessor.spec.ts"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "uncommitted-review",
+      "class": "review",
+      "description": "Review the working tree for semantic code smells and malformed diffs.",
+      "inputs": {
+        "documentation": [
+          ".ai-harness/README.md",
+          ".ai-harness/core/workflows/change-retrieval.md",
+          ".ai-harness/core/skills/review-code-smells/SKILL.md",
+          ".ai-harness/external/ponytail/skills/ponytail-review/SKILL.md"
+        ],
+        "code": []
+      },
+      "commands": [
+        {
+          "label": "diff check",
+          "executable": "git",
+          "args": ["diff", "--check"]
+        },
+        {
+          "label": "diff summary",
+          "executable": "git",
+          "args": ["diff", "--stat"]
+        }
+      ]
+    },
+    {
+      "id": "desktop-roadmap",
+      "class": "planning",
+      "description": "Plan a multi-milestone desktop change from verified architecture.",
+      "inputs": {
+        "documentation": [
+          ".ai-harness/README.md",
+          ".ai-harness/domains/product-delivery/README.md",
+          ".ai-harness/domains/product-delivery/docs/roadmap-contract.md",
+          ".ai-harness/core/skills/build-roadmap/SKILL.md",
+          ".ai-harness/domains/tamabuddy-desktop/README.md",
+          ".ai-harness/domains/tamabuddy-desktop/docs/current-state.md",
+          ".ai-harness/domains/tamabuddy-desktop/docs/architecture.md",
+          ".ai-harness/domains/tamabuddy-desktop/docs/extension-points.md"
+        ],
+        "code": ["apps/tamabuddy-desktop/project.json"]
+      },
+      "commands": [
+        {
+          "label": "project discovery",
+          "executable": "pnpm",
+          "args": [
+            "nx",
+            "show",
+            "project",
+            "@tamabuddy/tamabuddy-desktop",
+            "--json"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "desktop-visual-polish",
+      "class": "visual",
+      "description": "Polish an existing mascot surface without changing product identity.",
+      "inputs": {
+        "documentation": [
+          ".ai-harness/README.md",
+          ".ai-harness/domains/tamabuddy-desktop/README.md",
+          ".ai-harness/domains/tamabuddy-desktop/docs/current-state.md",
+          ".ai-harness/domains/tamabuddy-desktop/docs/visual-language.md",
+          ".ai-harness/core/skills/design-interface/SKILL.md",
+          ".ai-harness/external/taste-skill/skills/redesign-existing-projects/SKILL.md"
+        ],
+        "code": [
+          "apps/tamabuddy-desktop/src/features/mascot/MascotSprite.tsx",
+          "apps/tamabuddy-desktop/src/features/mascot/mascot.css",
+          "apps/tamabuddy-desktop/src/features/mascot/__tests__/MascotSprite.spec.tsx"
+        ]
+      },
+      "commands": [
+        {
+          "label": "focused mascot test",
+          "executable": "pnpm",
+          "args": [
+            "nx",
+            "test",
+            "@tamabuddy/tamabuddy-desktop",
+            "--run",
+            "src/features/mascot/__tests__/MascotSprite.spec.tsx"
+          ]
+        }
+      ]
+    }
+  ]
+}

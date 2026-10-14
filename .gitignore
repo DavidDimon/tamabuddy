@@ -29,6 +29,7 @@ node_modules
 /.sass-cache
 /connect.lock
 /coverage
+/.ai-harness/.baseline-runs/
 /apps/*/test-output/
 /libpeerconnection.log
 .env
