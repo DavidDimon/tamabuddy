@@ -22,6 +22,7 @@ Project-local guidance for finding the right extension point, preserving archite
 - `domains/tamabuddy-engine/`: engine-specific state, boundaries, and entry workflow.
 - `domains/tamabuddy-desktop/`: desktop architecture, visual language, boundaries, and extension points.
 - `domains/product-delivery/`: evidence-backed implementation task and roadmap contracts.
+- `.handoffs/`: ignored transient milestone state created from the handoff template.
 - `external/`: pinned upstream skill snapshots with license and provenance; local routing remains in `core/skills/`.
 - `adapters/`: thin agent-specific discovery layers; never a second source of rules.
 - `reviews/`: how findings become evidence without automatically becoming policy.

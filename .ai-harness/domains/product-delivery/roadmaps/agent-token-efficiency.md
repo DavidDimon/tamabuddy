@@ -2,9 +2,10 @@
 
 Status: active
 
-Progress: milestone 1 completed on 2026-10-14. The reproducible scenario set,
-collector, first command/input measurements, and six passing retrieval-quality
-checks live under `baselines/agent-context/`. Milestone 2 has not started.
+Progress: milestones 1 and 2 completed on 2026-10-14. Milestone 3 implementation
+is complete; its fresh-conversation exit experiment is pending. The reproducible
+scenarios, measurements, compact command entry, handoff protocol, and evidence
+live under `baselines/agent-context/`.
 
 ## Target outcome
 
@@ -105,6 +106,12 @@ least 61%; see
   deve manter comando, alvo, status e caminho para o log completo.
 
 ### 3. Introduzir orçamento de contexto e handoff por milestone
+
+Status: implementation complete on 2026-10-14; exit validation pending. The
+template, indicative budgets, conversation-switch guidance, and reproducible
+fresh-conversation procedure are in place. Do not mark this milestone complete
+until [`handoff-validation.md`](../baselines/agent-context/handoff-validation.md)
+records a passing run.
 
 - Outcome: permitir conversas curtas e recuperação previsível do estado.
 - Entry conditions: métricas de contexto controlável do milestone 1.
